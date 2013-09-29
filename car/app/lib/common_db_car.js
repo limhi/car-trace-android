@@ -83,8 +83,8 @@ exports.setOnlyItem = function(collection, para) {
 		// the UI based on the binding.
 		entry.save();
 
-		isDebug && Ti.API.info('setOnlyItem in common_std, after save, entry=' + JSON.stringify(entry));
-		isDebug && Ti.API.info('setOnlyItem in common_std, after save, collection.length=' + collection.length);
+		isDebug && Ti.API.info('setOnlyItem in common_db_car, after save, entry=' + JSON.stringify(entry));
+		isDebug && Ti.API.info('setOnlyItem in common_db_car, after save, collection.length=' + collection.length);
 
 		// reload the collection from persistent storage
 		collection.fetch();

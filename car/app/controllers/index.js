@@ -51,10 +51,10 @@ function doRegister(e) {
 
 function doMatch(e) {
 	isDebug && Ti.API.info('in index, doMatch');
-	var helpController = Alloy.createController('match', {
+	var matchController = Alloy.createController('match', {
 		isDebug : true
 	});
-	helpController && helpController.getView() && helpController.getView().open();
+	matchController && matchController.getView() && matchController.getView().open();
 }
 
 function GUIReady() {
