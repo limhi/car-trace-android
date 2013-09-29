@@ -1,0 +1,6 @@
+<Alloy>
+	<Window class="container" layout='vertical'>
+		<Button id="RegisterB" onClick="doRegister">Register</Button>
+		<Button id="MatchB" onClick="doMatch">Match Phone</Button>
+	</Window>
+</Alloy>
