@@ -1,0 +1,12 @@
+<Alloy>
+	<Window class="container" layout='vertical'>
+		<Require id="header" src="header" title='Match Phone' hideFunctionButton="true" />
+		<Button id="MatchB" onClick="doMatch">Match Phone</Button>
+		<Label id="MatchL" text='123' ></Label>
+		<TableView id="MatchTV" height="80%" layout="vertical" dataCollection="mymatches" dataFunction="updateUI" dataTransform="transformData" >
+			<TableViewRow layout="horizontal" >
+				<Label id="carL" width='Ti.UI.SIZE' height="Ti.UI.SIZE" title=''/>
+			</TableViewRow>
+		</TableView>
+	</Window>
+</Alloy>

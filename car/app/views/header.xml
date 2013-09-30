@@ -1,0 +1,7 @@
+<Alloy>
+	<View id="ViewHeader" layout='horizontal' zIndex="0" height="10%">
+		<Button id="backButton" left='10' width='Ti.UI.SIZE' onClick="doBack" title="上一頁" />
+		<Label id="headerTitle" />
+		<Button id="functionButton" right='10' width='Ti.UI.SIZE' onClick='fireFunctionEvent' />
+	</View>
+</Alloy>
