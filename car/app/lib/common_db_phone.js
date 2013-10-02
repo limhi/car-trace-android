@@ -13,10 +13,10 @@ exports.disableDebug = function() {
 exports.addItem = function(collection, para) {
 	try {
 		collection.fetch();
-		isDebug && Ti.API.info('addItem in common_db_car, para=' + JSON.stringify(para));
-		isDebug && Ti.API.info('addItem in common_db_car, collection.length=' + collection.length);
+		isDebug && Ti.API.info('addItem in common_db_phone, para=' + JSON.stringify(para));
+		isDebug && Ti.API.info('addItem in common_db_phone, collection.length=' + collection.length);
 		// create a new model instance based on user input
-		var entry = Alloy.createModel('mycars', {
+		var entry = Alloy.createModel('myphones', {
 			encodedKey : para.encodedKey,
 			deviceID : para.deviceID,
 			appVersion : para.appVersion,
@@ -37,13 +37,13 @@ exports.addItem = function(collection, para) {
 		// Save the entry to persistence, which will re-render
 		// the UI based on the binding.
 		entry.save();
-		isDebug && Ti.API.info('addItem in common_db_car, after add, entry=' + JSON.stringify(entry));
-		isDebug && Ti.API.info('addItem in common_db_car, after add, collection.length=' + collection.length);
+		isDebug && Ti.API.info('addItem in common_db_phone, after add, entry=' + JSON.stringify(entry));
+		isDebug && Ti.API.info('addItem in common_db_phone, after add, collection.length=' + collection.length);
 
 		// reload the collection from persistent storage
 		collection.fetch();
 	} catch(error) {
-		Ti.API.error('addItem in common_db_car, error=' + error);
+		Ti.API.error('addItem in common_db_phone, error=' + error);
 	}
 
 };
@@ -51,18 +51,18 @@ exports.addItem = function(collection, para) {
 exports.setOnlyItem = function(collection, para) {
 	try {
 		collection.fetch();
-		isDebug && Ti.API.info('setOnlyItem in common_db_car, para=' + JSON.stringify(para));
-		isDebug && Ti.API.info('setOnlyItem in common_db_car, collection.length=' + collection.length);
+		isDebug && Ti.API.info('setOnlyItem in common_db_phone, para=' + JSON.stringify(para));
+		isDebug && Ti.API.info('setOnlyItem in common_db_phone, collection.length=' + collection.length);
 
 		//clean all record in collection
 		while (collection.length > 0) {
 			collection.pop().destroy();
 		}
 
-		isDebug && Ti.API.info('setOnlyItem in common_db_car, after reset, collection.length=' + collection.length);
+		isDebug && Ti.API.info('setOnlyItem in common_db_phone, after reset, collection.length=' + collection.length);
 
 		// create a new model instance based on user input
-		var entry = Alloy.createModel('mycars', {
+		var entry = Alloy.createModel('myphones', {
 			encodedKey : para.encodedKey,
 			deviceID : para.deviceID,
 			appVersion : para.appVersion,
@@ -84,13 +84,13 @@ exports.setOnlyItem = function(collection, para) {
 		// the UI based on the binding.
 		entry.save();
 
-		isDebug && Ti.API.info('setOnlyItem in common_db_car, after save, entry=' + JSON.stringify(entry));
-		isDebug && Ti.API.info('setOnlyItem in common_db_car, after save, collection.length=' + collection.length);
+		isDebug && Ti.API.info('setOnlyItem in common_db_phone, after save, entry=' + JSON.stringify(entry));
+		isDebug && Ti.API.info('setOnlyItem in common_db_phone, after save, collection.length=' + collection.length);
 
 		// reload the collection from persistent storage
 		collection.fetch();
 	} catch(error) {
-		Ti.API.error('setOnlyItem in common_db_car, error=' + error);
+		Ti.API.error('setOnlyItem in common_db_phone, error=' + error);
 	}
 };
 
