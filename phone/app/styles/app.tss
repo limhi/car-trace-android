@@ -1,0 +1,13 @@
+".container": {
+	backgroundColor:"white"
+},
+"Label" : {
+	font : {
+		fontSize: 40
+	}
+},
+"TextFiled" : {
+	font : {
+		fontSize: 40
+	}
+}
