@@ -1,0 +1,12 @@
+<Alloy>
+	<Window class="container" layout='vertical'>
+		<Require id="header" src="header" title='Match Car' hideFunctionButton="true" />
+		<TextField id='RandomidTF' value='' hintText='please enter random id' />
+		<Button id="MatchB" onClick="doMatch">Match Phone</Button>
+		<TableView id="MatchTV" height="80%" layout="vertical" dataCollection="mymatches" dataFunction="updateUI" dataTransform="transformData" >
+			<TableViewRow layout="horizontal" >
+				<Label id="carL" width='Ti.UI.SIZE' height="Ti.UI.SIZE" text='{carID}'/>
+			</TableViewRow>
+		</TableView>
+	</Window>
+</Alloy>
