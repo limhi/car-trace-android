@@ -11,29 +11,39 @@ exports.disableDebug = function() {
 };
 
 exports.addItem = function(collection, para) {
-	// create a new model instance based on user input
-	var entry = Alloy.createModel('mymatches', {
-		encodedKey : para.encodedKey,
-		carID : para.carID,
-		phoneID : para.phoneID,
-		addTime : para.addTime,
-		modTime : para.modTime
-	});
+	try {
+		collection.fetch();
+		isDebug && Ti.API.info('addItem in common_db_match, para=' + JSON.stringify(para));
+		isDebug && Ti.API.info('addItem in common_db_match, collection.length=' + collection.length);
 
-	// Add new model to the collection, use silent=true
-	// so that a "change" event is not fired and the
-	// UI is re-rendered.
-	// add new model to local collection
-	collection.add(entry, {
-		silent : true
-	});
+		// create a new model instance based on user input
+		var entry = Alloy.createModel('mymatches', {
+			encodedKey : para.encodedKey,
+			carID : para.carID,
+			phoneID : para.phoneID,
+			addTime : para.addTime,
+			modTime : para.modTime
+		});
 
-	// Save the entry to persistence, which will re-render
-	// the UI based on the binding.
-	entry.save();
+		// Add new model to the collection, use silent=true
+		// so that a "change" event is not fired and the
+		// UI is re-rendered.
+		// add new model to local collection
+		collection.add(entry, {
+			silent : true
+		});
 
-	// reload the collection from persistent storage
-	collection.fetch();
+		// Save the entry to persistence, which will re-render
+		// the UI based on the binding.
+		entry.save();
+		isDebug && Ti.API.info('addItem in common_db_match, after add, entry=' + JSON.stringify(entry));
+		isDebug && Ti.API.info('addItem in common_db_match, after add, collection.length=' + collection.length);
+
+		// reload the collection from persistent storage
+		collection.fetch();
+	} catch(error) {
+		Ti.API.error('addItem in common_db_match, error=' + error);
+	}
 };
 
 exports.setOnlyItem = function(collection, para) {
