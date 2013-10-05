@@ -3,9 +3,11 @@ var args = arguments[0] || {};
 var isDebug = 'true';
 
 var ct = require('common_ct');
+ct.enableDebug();
 var dbphone = require('common_db_phone');
 // dbphone.enableDebug();
 var myphones = Alloy.Collections.myphones;
+var mymatches = Alloy.Collections.mymatches;
 
 (function(activity) {
 	Ti.API.info('into index gcm activity!');
@@ -42,9 +44,11 @@ function doRegister(e) {
 		success : function(m) {
 			isDebug && Ti.API.info('in index, in doRegister, success, message = ' + JSON.stringify(m));
 			dbphone.setOnlyItem(myphones, m);
+			GUISetup();
 		},
 		fail : function(m) {
 			Ti.API.error('in index, in doRegister, fail, message = ' + JSON.stringify(m));
+			GUISetup();
 		}
 	});
 }
@@ -57,7 +61,62 @@ function doMatch(e) {
 	matchController && matchController.getView() && matchController.getView().open();
 }
 
+function doGPS_Fetch(e) {
+	isDebug && Ti.API.info('in index, doGPS_Fetch');
+	ct.pcpnMerge({
+		data : {
+			type : "sendGPS",
+			message : 'request for GPS', //myphones.at(0).get('encodedKey')
+			phoneid : myphones.at(0).get('encodedKey')
+		},
+		success : function(e) {
+			isDebug && Ti.API.info('in index, in doGPS_Fetch, pcpnMerge, success, message = ' + JSON.stringify(e));
+			var messageid = e.messageID;
+			isDebug && Ti.API.info('in index, in doGPS_Fetch, pcpnMerge, success, messageid = ' + messageid);
+
+			ct.pcpnSend({
+				data : {
+					phoneid : myphones.at(0).get('encodedKey'),
+					messageid : messageid
+				},
+				success : function(ev) {
+					isDebug && Ti.API.info('in index, in doGPS_Fetch, pcpnSend, success, message = ' + JSON.stringify(ev));
+				},
+				fail : function(ev) {
+					Ti.API.error('in index, in doGPS_Fetch, pcpnSend, fail, message = ' + JSON.stringify(ev));
+				}
+			});
+		},
+		fail : function(e) {
+			Ti.API.error('in index, in doGPS_Fetch, pcpnMerge, fail, message = ' + JSON.stringify(m));
+		}
+	});
+}
+
+function GUISetup() {
+	$.RegisterB.enabled = true;
+	$.MatchB.enabled = false;
+	$.GPS_FetchB.enabled = false;
+	$.MessageTA.value = '';
+	myphones.fetch();
+	if (myphones.length !== 0) {
+		$.RegisterB.enabled = false;
+		var myphone = myphones.at(0);
+		$.MessageTA.value = 'register success\nphoneid : ' + myphone.get('encodedKey');
+		$.MatchB.enabled = true;
+
+		mymatches.fetch();
+		if (mymatches.length !== 0) {
+			$.MessageTA.value += '\nmatch with ' + mymatches.length + ' devices';
+			$.GPS_FetchB.enabled = true;
+		}
+	}
+
+}
+
 function GUIReady() {
+	$.RegisterB.enabled = true;
+	$.GPSInfoTA.visible = false;
 	var gcm = require('net.iamyellow.gcmjs');
 
 	var pendingData = gcm.data;
@@ -79,11 +138,13 @@ function GUIReady() {
 		error : function(ev) {
 			// when an error occurs
 			Ti.API.info('******* error, ' + ev.error);
+			GUISetup();
 		},
 		callback : function(ev) {
 			// when a gcm notification is received WHEN the app IS IN FOREGROUND
 			Ti.API.info('******* callback, ' + JSON.stringify(ev));
-			alert('hellow push notification!');
+			$.GPSInfoTA.value = 'get message : ' + JSON.stringify(ev);
+			alert('get message : ' + JSON.stringify(ev));
 		},
 		unregister : function(ev) {
 			// on unregister
@@ -102,6 +163,7 @@ function GUIReady() {
 // in order to unregister:
 // require('net.iamyellow.gcmjs').unregister();
 $.index.addEventListener('open', GUIReady);
+$.index.addEventListener('focus', GUISetup);
 isDebug && Ti.API.info('init done');
 
 $.index.open();
