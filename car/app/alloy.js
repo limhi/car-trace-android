@@ -21,4 +21,5 @@ Alloy.Collections.mycars.fetch();
 
 //=====define myMatches model=====
 Alloy.Collections.mymatches = Alloy.createCollection('mymatches');
+Alloy.Collections.mymatches.fetch();
 
