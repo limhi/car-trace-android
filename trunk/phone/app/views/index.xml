@@ -1,6 +1,9 @@
 <Alloy>
 	<Window class="container" layout='vertical'>
-		<Button id="RegisterB" onClick="doRegister">Register</Button>
-		<Button id="MatchB" onClick="doMatch">Match Car</Button>
+		<Button id="RegisterB" enabled='true' onClick="doRegister">Register</Button>
+		<Button id="MatchB" enabled='false' onClick="doMatch">Match Car</Button>
+		<Button id="GPS_FetchB" enabled='false' onClick="doGPS_Fetch">Fetch Car GPS</Button>
+		<TextArea id='MessageTA' enabled='false' editable='false' hintText='please register first!' value=''></TextArea>
+		<TextArea id='GPSInfoTA' enabled='false' editable='false' visble='false' value=''></TextArea>
 	</Window>
 </Alloy>
