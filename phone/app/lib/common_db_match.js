@@ -1,5 +1,5 @@
 //var args = arguments[0] || {};
-var Alloy = require('alloy');
+var Alloy = require('alloy'), _ = require("alloy/underscore")._, Backbone = require("alloy/backbone");
 
 var isDebug = false;
 exports.enableDebug = function() {

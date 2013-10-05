@@ -1,5 +1,5 @@
 //var args = arguments[0] || {};
-var Alloy = require('alloy');
+var Alloy = require('alloy'), _ = require("alloy/underscore")._, Backbone = require("alloy/backbone");
 
 var isDebug = false;
 exports.enableDebug = function() {
@@ -55,7 +55,7 @@ function MyLoad(para) {
 			isDebug && Ti.API.info('onload in MyLoad, in common_webapi, resObj.result = ' + resObj.result);
 			isDebug && Ti.API.info('onload in MyLoad, in common_webapi, resObj.code = ' + resObj.code);
 			if (this.status === 200) {
-				isDebug && Ti.API.info('send resObj to para.sucess');
+				isDebug && Ti.API.info('send resObj to para.success');
 				success(resObj);
 			} else {
 				isDebug && Ti.API.info('send respText to para.fail');
