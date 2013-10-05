@@ -10,6 +10,7 @@ var mymatches = Alloy.Collections.mymatches;
 
 function doMatch(e) {
 	isDebug && Ti.API.info('in match, doMatch');
+	myphones.fetch();
 	if (myphones.length !== 1) {
 		alert("register first!");
 		return;
@@ -29,6 +30,7 @@ function doMatch(e) {
 		},
 		success : function(m) {
 			isDebug && Ti.API.info('in match, in doMatch, success, message = ' + JSON.stringify(m));
+			mymatches.fetch();
 			var modelArray = mymatches.where({
 				phoneID : m.phoneID,
 				carID : m.carID
@@ -45,12 +47,16 @@ function doMatch(e) {
 				});
 				updateUI();
 			}
-
+			$.RandomidTF.value = '';
 		},
 		fail : function(m) {
 			Ti.API.error('in match, in doMatch, fail, message = ' + JSON.stringify(m));
 		}
 	});
+}
+
+function removeItem(e) {
+	dbmatch.removeItem(mymatches, e.index);
 }
 
 function transformData(model) {
@@ -73,3 +79,5 @@ $.header.on('back', myback);
 $.match.addEventListener('androidback', function() {
 	myback();
 });
+
+updateUI();
