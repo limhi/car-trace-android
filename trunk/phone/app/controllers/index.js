@@ -9,6 +9,8 @@ var dbphone = require('common_db_phone');
 var myphones = Alloy.Collections.myphones;
 var mymatches = Alloy.Collections.mymatches;
 
+var longitude, latitude;
+
 (function(activity) {
 	Ti.API.info('into index gcm activity!');
 
@@ -93,6 +95,18 @@ function doGPS_Fetch(e) {
 	});
 }
 
+function doMap(e) {
+	isDebug && Ti.API.info('in index, doMap');
+	$.MapB.visible = false;
+	isDebug && Ti.API.info('in index, longitude = ' + longitude);
+	isDebug && Ti.API.info('in index, latitude = ' + latitude);
+	var intent = Ti.Android.createIntent({
+		action : Ti.Android.ACTION_VIEW,
+		data : 'geo:' + longitude + ',' + latitude
+	});
+	Ti.Android.currentActivity.startActivity(intent);
+}
+
 function GUISetup() {
 	$.RegisterB.enabled = true;
 	$.MatchB.enabled = false;
@@ -143,7 +157,16 @@ function GUIReady() {
 		callback : function(ev) {
 			// when a gcm notification is received WHEN the app IS IN FOREGROUND
 			Ti.API.info('******* callback, ' + JSON.stringify(ev));
+			$.GPSInfoTA.visible = true;
 			$.GPSInfoTA.value = 'get message : ' + JSON.stringify(ev);
+			var message = ev.message;
+			var myArr = message.split(',');
+			if (myArr.length === 2) {
+				longitude = myArr[0];
+				latitude = myArr[1];
+			}
+			$.MapB.visible = true;
+
 			alert('get message : ' + JSON.stringify(ev));
 		},
 		unregister : function(ev) {
