@@ -102,7 +102,7 @@ function doMap(e) {
 	isDebug && Ti.API.info('in index, latitude = ' + latitude);
 	var intent = Ti.Android.createIntent({
 		action : Ti.Android.ACTION_VIEW,
-		data : 'geo:' + longitude + ',' + latitude
+		data : 'geo:' + latitude + ',' + longitude
 	});
 	Ti.Android.currentActivity.startActivity(intent);
 }
