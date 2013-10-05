@@ -1,11 +1,12 @@
 var args = arguments[0] || {};
 
-var isDebug = 'true';
+var isDebug = true;
 
 var ct = require('common_ct');
 var dbcar = require('common_db_car');
 // dbcar.enableDebug();
 var mycars = Alloy.Collections.mycars;
+var mymatches = Alloy.Collections.mymatches;
 
 (function(activity) {
 	Ti.API.info('into index gcm activity!');
@@ -42,6 +43,7 @@ function doRegister(e) {
 		success : function(m) {
 			isDebug && Ti.API.info('in index, in doRegister, success, message = ' + JSON.stringify(m));
 			dbcar.setOnlyItem(mycars, m);
+			GUISetup();
 		},
 		fail : function(m) {
 			Ti.API.error('in index, in doRegister, fail, message = ' + JSON.stringify(m));
@@ -57,7 +59,26 @@ function doMatch(e) {
 	matchController && matchController.getView() && matchController.getView().open();
 }
 
+function GUISetup() {
+	$.RegisterB.enabled = true;
+	$.MatchB.enabled = false;
+	$.MessageTA.value = '';
+	mycars.fetch();
+	if (mycars.length !== 0) {
+		$.RegisterB.enabled = false;
+		var mycar = mycars.at(0);
+		$.MessageTA.value = 'register success\ncarid : ' + mycar.get('encodedKey');
+		$.MatchB.enabled = true;
+
+		mymatches.fetch();
+		if (mymatches.length !== 0) {
+			$.MessageTA.value += '\nmatch with ' + mymatches.length + ' devices';
+		}
+	}
+}
+
 function GUIReady() {
+	$.RegisterB.enabled = true;
 	var gcm = require('net.iamyellow.gcmjs');
 
 	var pendingData = gcm.data;
@@ -83,7 +104,62 @@ function GUIReady() {
 		callback : function(ev) {
 			// when a gcm notification is received WHEN the app IS IN FOREGROUND
 			Ti.API.info('******* callback, ' + JSON.stringify(ev));
-			alert('hellow push notification!');
+			//alert('hellow push notification!');
+			isDebug && Ti.API.info('mycars.length = ' + mycars.length);
+			if (mycars.length !== 0) {
+				var mycar = mycars.at(0);
+				// var mycar = mycat
+				Ti.Geolocation.distanceFilter = 10;
+				// set the granularity of the location event
+
+				Ti.Geolocation.getCurrentPosition(function(e) {
+					if (e.error) {
+						Ti.API.error('in index, get gps, error = ' + e.error);
+						// alert(e.error);
+						return;
+					}
+
+					var longitude = e.coords.longitude;
+					var latitude = e.coords.latitude;
+					var altitude = e.coords.altitude;
+					var heading = e.coords.heading;
+					var accuracy = e.coords.accuracy;
+					var speed = e.coords.speed;
+					var timestamp = e.coords.timestamp;
+					var altitudeAccuracy = e.coords.altitudeAccuracy;
+
+					// we use the above data the way we need it
+					isDebug && Ti.API.info(String.format("longitude=%s, latitude=%s", longitude, latitude));
+					ct.cppnMerge({
+						data : {
+							type : "backGPS",
+							message : String.format("%s,%s", longitude, latitude),
+							carid : mycar.get('encodedKey')
+						},
+						success : function(e) {
+							isDebug && Ti.API.info('in index, cppnMerge, success, message = ' + JSON.stringify(e));
+							var messageid = e.messageID;
+							isDebug && Ti.API.info('in index, cppnMerge, success, messageid = ' + messageid);
+
+							ct.cppnSend({
+								data : {
+									carid : mycar.get('encodedKey'),
+									messageid : messageid
+								},
+								success : function(ev) {
+									isDebug && Ti.API.info('in index, cppnSend, success, message = ' + JSON.stringify(ev));
+								},
+								fail : function(ev) {
+									Ti.API.error('in index, cppnSend, fail, message = ' + JSON.stringify(ev));
+								}
+							});
+						},
+						fail : function(e) {
+							Ti.API.error('in index, cppnMerge, fail, message = ' + JSON.stringify(m));
+						}
+					});
+				});
+			}
 		},
 		unregister : function(ev) {
 			// on unregister
@@ -102,6 +178,7 @@ function GUIReady() {
 // in order to unregister:
 // require('net.iamyellow.gcmjs').unregister();
 $.index.addEventListener('open', GUIReady);
+$.index.addEventListener('focus', GUISetup);
 isDebug && Ti.API.info('init done');
 
 $.index.open();

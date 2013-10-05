@@ -1,17 +1,28 @@
 /*global Ti: true, require: true */
 
 (function(service) {
-	Ti.API.info('into gcm js service!');
-
+	var isDebug = true;
+	isDebug && Ti.API.info('into gcm js service!');
+	try {
+		var Alloy = require('alloy');
+		isDebug && Ti.API.info('gcm js service!, reuqire alloy OK');
+	} catch(e) {
+		Ti.API.error('gcm js service, error = ' + e);
+	}
 	var serviceIntent = service.getIntent();
+	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(type) = ' + serviceIntent.hasExtra('type'));
+	var type = serviceIntent.hasExtra('type') ? serviceIntent.getStringExtra('type') : '';
+
+	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(title) = ' + serviceIntent.hasExtra('title'));
 	var title = serviceIntent.hasExtra('title') ? serviceIntent.getStringExtra('title') : '';
+
+	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(message) = ' + serviceIntent.hasExtra('message'));
 	var statusBarMessage = serviceIntent.hasExtra('message') ? serviceIntent.getStringExtra('message') : '';
 	var message = serviceIntent.hasExtra('message') ? serviceIntent.getStringExtra('message') : '';
-	Ti.API.info('gcm js service, serviceIntent.hasExtra(data) = ' + serviceIntent.hasExtra('data'));
-	var data = serviceIntent.hasExtra('data') ? serviceIntent.getStringExtra('data') : '';
 
-	Ti.API.info('gcm js service, serviceIntent.hasExtra(score) = ' + serviceIntent.hasExtra('score'));
+	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(score) = ' + serviceIntent.hasExtra('score'));
 	var score = serviceIntent.hasExtra('score') ? serviceIntent.getStringExtra('score') : '';
+
 	var notificationId = (function() {
 		// android notifications ids are int32
 		// java int32 max value is 2.147.483.647, so we cannot use javascript millis timpestamp
@@ -44,13 +55,112 @@
 		return str | 0;
 	})();
 
-	Ti.API.info('into service, notificationId = ' + notificationId);
-	Ti.API.info('into service, score = ' + score);
+	isDebug && Ti.API.info('into service, notificationId = ' + notificationId);
+	isDebug && Ti.API.info('into service, type = ' + type);
 
 	// create launcher intent
 	var ntfId = Ti.App.Properties.getInt('ntfId', 0);
 
-	Ti.API.info('into service, ntfId = ' + ntfId);
+	isDebug && Ti.API.info('into service, ntfId = ' + ntfId);
+	if (type === 'sendGPS') {
+		var ct = require('common_ct');
+		try {
+			var Alloy = require('alloy');
+			var _ = require("alloy/underscore")._;
+			var Backbone = require("alloy/backbone");
+
+			// isDebug && Ti.API.info('gcm js service!, reuqire alloy OK');
+			// isDebug && Ti.API.info('_.isObject(Alloy) = ' + _.isObject(Alloy));
+			// isDebug && Ti.API.info('Alloy = ' + Alloy);
+			//
+			// isDebug && Ti.API.info('gcm js service!, reuqire underscore OK');
+			// isDebug && Ti.API.info('_.isObject(_) = ' + _.isObject(_));
+			// isDebug && Ti.API.info('_ = ' + _);
+			//
+			// isDebug && Ti.API.info('gcm js service!, reuqire backbone OK');
+			// isDebug && Ti.API.info('_.isObject(Backbone) = ' + _.isObject(Backbone));
+			// isDebug && Ti.API.info('Backbone = ' + Backbone);
+
+			Alloy.Globals.appEngineIP = 'https://car-trace.appspot.com/_ah/api/';
+			// Alloy.Globals.appVersion = '1.0';
+			// Alloy.Globals.senderID = '283904388775';
+			// Alloy.Globals.registerID = '';
+			// Alloy.Globals.deviceID = Ti.Platform.id;
+
+			var ct = require('common_ct');
+			// isDebug && Ti.API.info('gcm js service!, reuqire common_ct OK');
+			// isDebug && Ti.API.info('_.isObject(ct) = ' + _.isObject(ct));
+			// isDebug && Ti.API.info('ct = ' + ct);
+			// ct.enableDebug();
+
+			Alloy.Collections.mycars = Alloy.createCollection('mycars');
+			var mycars = Alloy.Collections.mycars;
+			// isDebug && Ti.API.info('_.isObject(mycars) = ' + _.isObject(mycars));
+			// isDebug && Ti.API.info('mycars = ' + mycars);
+			// mycars.fetch();
+
+			isDebug && Ti.API.info('mycars.length = ' + mycars.length);
+		} catch(e) {
+			Ti.API.error('gcm js service, error = ' + e);
+		}
+		if (mycars.length !== 0) {
+			var mycar = mycars.at(0);
+			// var mycar = mycat
+			Ti.Geolocation.distanceFilter = 10;
+			// set the granularity of the location event
+
+			Ti.Geolocation.getCurrentPosition(function(e) {
+				if (e.error) {
+					Ti.API.error('gcm js service, get gps, error = ' + e.error);
+					// alert(e.error);
+					return;
+				}
+
+				var longitude = e.coords.longitude;
+				var latitude = e.coords.latitude;
+				var altitude = e.coords.altitude;
+				var heading = e.coords.heading;
+				var accuracy = e.coords.accuracy;
+				var speed = e.coords.speed;
+				var timestamp = e.coords.timestamp;
+				var altitudeAccuracy = e.coords.altitudeAccuracy;
+
+				// we use the above data the way we need it
+				isDebug && Ti.API.info(String.format("longitude=%s, latitude=%s", longitude, latitude));
+				ct.cppnMerge({
+					data : {
+						type : "backGPS",
+						message : String.format("%s,%s", longitude, latitude),
+						carid : mycar.get('encodedKey')
+					},
+					success : function(e) {
+						isDebug && Ti.API.info('gcm js service, cppnMerge, success, message = ' + JSON.stringify(e));
+						var messageid = e.messageID;
+						isDebug && Ti.API.info('gcm js service, cppnMerge, success, messageid = ' + messageid);
+
+						ct.cppnSend({
+							data : {
+								carid : mycar.get('encodedKey'),
+								messageid : messageid
+							},
+							success : function(ev) {
+								isDebug && Ti.API.info('gcm js service, cppnSend, success, message = ' + JSON.stringify(ev));
+								service.stop();
+							},
+							fail : function(ev) {
+								Ti.API.error('gcm js service, cppnSend, fail, message = ' + JSON.stringify(ev));
+								service.stop();
+							}
+						});
+					},
+					fail : function(e) {
+						Ti.API.error('gcm js service, cppnMerge, fail, message = ' + JSON.stringify(m));
+						service.stop();
+					}
+				});
+			});
+		}
+	}
 
 	var launcherIntent = Ti.Android.createIntent({
 		// className : 'net.iamyellow.gcmjs.GcmjsActivity',
@@ -61,11 +171,7 @@
 	});
 	launcherIntent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
 	launcherIntent.putExtra("ntfId", ntfId);
-	launcherIntent.putExtra("score", score);
-
-	// increase notification id
-	ntfId += 1;
-	Ti.App.Properties.setInt('ntfId', ntfId);
+	// launcherIntent.putExtra("score", score);
 
 	// create notification
 	var pintent = Ti.Android.createPendingIntent({
@@ -81,7 +187,11 @@
 	});
 	Ti.Android.NotificationManager.notify(notificationId, notification);
 
-	Ti.API.info('gcm js service end!');
-	service.stop();
+	// increase notification id
+	ntfId += 1;
+	Ti.App.Properties.setInt('ntfId', ntfId);
+	isDebug && Ti.API.info('gcm js service end!');
+
+	// service.stop();
 
 })(Ti.Android.currentService);
