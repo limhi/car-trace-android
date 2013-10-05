@@ -1,6 +1,7 @@
 <Alloy>
 	<Window class="container" layout='vertical'>
-		<Button id="RegisterB" onClick="doRegister">Register</Button>
-		<Button id="MatchB" onClick="doMatch">Match Phone</Button>
+		<Button id="RegisterB" enabled='true' onClick="doRegister">Register</Button>
+		<Button id="MatchB" enabled='false' onClick="doMatch">Match Phone</Button>
+		<TextArea id='MessageTA' enabled='false' editable='false' hintText='please register first!' value=''></TextArea>
 	</Window>
 </Alloy>
