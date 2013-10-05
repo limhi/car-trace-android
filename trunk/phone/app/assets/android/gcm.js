@@ -4,14 +4,19 @@
 	Ti.API.info('into gcm js service!');
 
 	var serviceIntent = service.getIntent();
+	Ti.API.info('gcm js service, serviceIntent.hasExtra(type) = ' + serviceIntent.hasExtra('type'));
+	var type = serviceIntent.hasExtra('type') ? serviceIntent.getStringExtra('type') : '';
+
+	Ti.API.info('gcm js service, serviceIntent.hasExtra(title) = ' + serviceIntent.hasExtra('title'));
 	var title = serviceIntent.hasExtra('title') ? serviceIntent.getStringExtra('title') : '';
+
+	Ti.API.info('gcm js service, serviceIntent.hasExtra(message) = ' + serviceIntent.hasExtra('message'));
 	var statusBarMessage = serviceIntent.hasExtra('message') ? serviceIntent.getStringExtra('message') : '';
 	var message = serviceIntent.hasExtra('message') ? serviceIntent.getStringExtra('message') : '';
-	Ti.API.info('gcm js service, serviceIntent.hasExtra(data) = ' + serviceIntent.hasExtra('data'));
-	var data = serviceIntent.hasExtra('data') ? serviceIntent.getStringExtra('data') : '';
 
 	Ti.API.info('gcm js service, serviceIntent.hasExtra(score) = ' + serviceIntent.hasExtra('score'));
 	var score = serviceIntent.hasExtra('score') ? serviceIntent.getStringExtra('score') : '';
+
 	var notificationId = (function() {
 		// android notifications ids are int32
 		// java int32 max value is 2.147.483.647, so we cannot use javascript millis timpestamp
@@ -45,27 +50,33 @@
 	})();
 
 	Ti.API.info('into service, notificationId = ' + notificationId);
-	Ti.API.info('into service, score = ' + score);
+	Ti.API.info('into service, type = ' + type);
 
 	// create launcher intent
 	var ntfId = Ti.App.Properties.getInt('ntfId', 0);
 
 	Ti.API.info('into service, ntfId = ' + ntfId);
+	if (type === 'backGPS') {
+		var ct = require('common_ct');
+		var myphones = Alloy.Collections.myphones;
+		myphones.fetch();
+
+		Ti.API.info('myphones.length = ' + myphones.length);
+		if (myphones.length !== 0) {
+			var myphone = myphones.at(0);
+		}
+	}
 
 	var launcherIntent = Ti.Android.createIntent({
 		// className : 'net.iamyellow.gcmjs.GcmjsActivity',
-		className : 'org.luke.ct.phone.CartracePhoneActivity',
+		className : 'org.luke.ct.car.CartraceCarActivity',
 		action : 'action' + ntfId, // we need an action identifier to be able to track click on notifications
 		packageName : Ti.App.id,
 		flags : Ti.Android.FLAG_ACTIVITY_NEW_TASK | Ti.Android.FLAG_ACTIVITY_SINGLE_TOP
 	});
 	launcherIntent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
 	launcherIntent.putExtra("ntfId", ntfId);
-	launcherIntent.putExtra("score", score);
-
-	// increase notification id
-	ntfId += 1;
-	Ti.App.Properties.setInt('ntfId', ntfId);
+	// launcherIntent.putExtra("score", score);
 
 	// create notification
 	var pintent = Ti.Android.createPendingIntent({
@@ -81,7 +92,11 @@
 	});
 	Ti.Android.NotificationManager.notify(notificationId, notification);
 
+	// increase notification id
+	ntfId += 1;
+	Ti.App.Properties.setInt('ntfId', ntfId);
 	Ti.API.info('gcm js service end!');
+
 	service.stop();
 
 })(Ti.Android.currentService);
