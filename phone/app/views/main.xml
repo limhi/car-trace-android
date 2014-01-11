@@ -1,0 +1,11 @@
+<Alloy>
+	<View id="PictureView" width="80%">
+		<ImageView height="Titanium.UI.FILL" width="auto" image="/sample.png"></ImageView>
+	</View>
+	<View id="MainFunctionView" width="20%">
+		<Label id="SendToL" height="25%" width="Titanium.UI.FILL" onClick="doSendTo">SendTo</Label>
+		<Label id="SnapshotL" height="25%" width="Titanium.UI.FILL" onClick="doSnapshot">Snapshot</Label>
+		<Label id="TalkL" height="25%" width="Titanium.UI.FILL" onClick="doTalk">Talk</Label>
+		<Label id="EnableGPSL" height="25%" width="Titanium.UI.FILL" onClick="doEnableGPS">EnableGPS</Label>
+	</View>
+</Alloy>
