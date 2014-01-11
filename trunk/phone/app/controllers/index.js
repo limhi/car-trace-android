@@ -55,6 +55,21 @@ function doRegister(e) {
 	});
 }
 
+function doVersion(e) {
+	Ti.API.info('in index, doVersion');
+	alert("尚未實作doVersion");
+}
+
+function doCarNumber(e) {
+	Ti.API.info('in index, doCarNumber');
+	alert("尚未實作doCarNumber");
+}
+
+function doSettings(e) {
+	Ti.API.info('in index, doSettings');
+	alert("尚未實作doSettings");
+}
+
 function doMatch(e) {
 	isDebug && Ti.API.info('in index, doMatch');
 	var matchController = Alloy.createController('match', {

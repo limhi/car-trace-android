@@ -1,13 +1,24 @@
 ".container": {
-	backgroundColor:"white"
+	backgroundColor: "white"
 },
-"Label" : {
-	font : {
-		fontSize: 40
-	}
+"View":{
+	borderColor: "black",
+	borderWidth: 1,
+	layout: "vertical"
 },
-"TextFiled" : {
-	font : {
+"Label": {
+	color: "black",
+	font: {
+		fontSize: 40,
+		fontWeight: "bold"
+	},
+	borderColor: "black",
+	borderWidth: 1,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+},
+"TextFiled": {
+	font: {
 		fontSize: 40
 	}
 }
+
