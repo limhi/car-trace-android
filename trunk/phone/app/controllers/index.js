@@ -66,8 +66,11 @@ function doCarNumber(e) {
 }
 
 function doSettings(e) {
-	Ti.API.info('in index, doSettings');
-	alert("尚未實作doSettings");
+	isDebug && Ti.API.info('in index, doSettings');
+	var settingsController = Alloy.createController('settings/index_table', {
+		isDebug : true
+	});
+	settingsController && settingsController.getView() && settingsController.getView().open();
 }
 
 function doMatch(e) {
