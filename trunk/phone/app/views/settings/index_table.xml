@@ -1,0 +1,16 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<Require id="header" src="header" title='CarList' functionTitle='Add' hideFunctionButton="false" />
+		<TableView layout="vertical" height="75%" headerTitle='Cars List'>
+			<Require src="settings/index_row"/>
+		</TableView>
+		<View height="10%">
+			<Label id="TableMessage" width="Titanium.UI.FILL" height="Titanium.UI.FILL">msg...</Label>
+		</View>
+		<View id="SettingFunction" height="10%" layout="horizontal">
+			<Label id="DWsettings" width="30%" height="Titanium.UI.FILL" onClick="doDownloadSettings">download settings</Label>
+			<Label id="Editsettings" width="40%" height="Titanium.UI.FILL" onClick="doEditSettings">edit settings</Label>
+			<Label id="ULSettings" width="30%" height="Titanium.UI.FILL" onClick="doUploadSettings">upload settings</Label>
+		</View>
+	</Window>
+</Alloy>

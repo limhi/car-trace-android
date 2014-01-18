@@ -1,0 +1,6 @@
+<Alloy>
+	<TableViewSection headerTitle="section title">
+		<Require src="settings/settings_row" sec_id="4" row_id="0" value_id="0" row_name="行車震動" />
+		<Require src="settings/settings_row" sec_id="4" row_id="1" value_id="0" row_name="行車震動敏感度" />
+	</TableViewSection>
+</Alloy>

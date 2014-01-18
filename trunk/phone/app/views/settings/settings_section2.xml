@@ -1,0 +1,9 @@
+<Alloy>
+	<TableViewSection headerTitle="section title">
+		<Require src="settings/settings_row" sec_id="2" row_id="0" value_id="0" row_name="啟動錄影" />
+		<Require src="settings/settings_row" sec_id="2" row_id="1" value_id="0" row_name="錄影循環" />
+		<Require src="settings/settings_row" sec_id="2" row_id="2" value_id="0" row_name="日期浮水印" />
+		<Require src="settings/settings_row" sec_id="2" row_id="3" value_id="0" row_name="日期格式" />
+		<Require src="settings/settings_row" sec_id="2" row_id="4" value_id="0" row_name="時間格式" />
+	</TableViewSection>
+</Alloy>

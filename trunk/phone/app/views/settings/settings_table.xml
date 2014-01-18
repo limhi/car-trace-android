@@ -1,0 +1,12 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<Require id="header" src="header" title='Edit Setting' hideFunctionButton="true" />
+		<TableView layout="vertical" onClick="doEdit">
+			<Require src="settings/settings_section0"/>
+			<Require src="settings/settings_section1"/>
+			<Require src="settings/settings_section2"/>
+			<Require src="settings/settings_section3"/>
+			<Require src="settings/settings_section4"/>
+		</TableView>
+	</Window>
+</Alloy>

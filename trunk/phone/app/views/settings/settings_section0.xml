@@ -1,0 +1,8 @@
+<Alloy>
+	<TableViewSection headerTitle="section title">
+		<Require src="settings/settings_row" sec_id="0" row_id="0" value_id="0" row_name="曝光" />
+		<Require src="settings/settings_row" sec_id="0" row_id="1" value_id="0" row_name="防閃爍" />
+		<Require src="settings/settings_row" sec_id="0" row_id="2" value_id="0" row_name="白平衡" />
+		<Require src="settings/settings_row" sec_id="0" row_id="3" value_id="0" row_name="紅外線夜視燈" />
+	</TableViewSection>
+</Alloy>
