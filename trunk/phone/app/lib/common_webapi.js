@@ -67,6 +67,7 @@ function MyLoad(para) {
 	};
 
 	xhr.onerror = function(e) {
+		Ti.API.error("onerror in MyLoad, in common_webapi, error : " + JSON.stringify(e));
 		var respText = this.responseText;
 		Ti.API.error('onerror in MyLoad, in common_webapi, this.responseText = ' + respText);
 		fail(respText);
