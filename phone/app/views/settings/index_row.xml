@@ -1,0 +1,7 @@
+<Alloy>
+	<TableViewRow layout="horizontal">
+		<Label left="2%" width="48%" text="4939-QT"/>
+		<Label left="2%" right="2%" width="21%" text="Rename"/>
+		<Label left="2%" right="2%" width="21%" text="Delete"/>
+	</TableViewRow>
+</Alloy>

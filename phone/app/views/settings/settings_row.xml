@@ -1,0 +1,6 @@
+<Alloy>
+	<TableViewRow layout="vertical" >
+		<Label height="auto" id="row_name" text="name"/>
+		<Label height="auto" id="row_value" text="value"/>
+	</TableViewRow>
+</Alloy>

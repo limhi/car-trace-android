@@ -1,0 +1,7 @@
+<Alloy>
+	<TableViewSection headerTitle="section title">
+		<Require src="settings/settings_row" sec_id="1" row_id="0" value_id="0" row_name="連拍張數" />
+		<Require src="settings/settings_row" sec_id="1" row_id="1" value_id="0" row_name="連拍時間間隔" />
+		<Require src="settings/settings_row" sec_id="1" row_id="2" value_id="0" row_name="預設儲存位置" />
+	</TableViewSection>
+</Alloy>
