@@ -1,14 +1,17 @@
 //var args = arguments[0] || {};
 var Alloy = require('alloy'), _ = require("alloy/underscore")._, Backbone = require("alloy/backbone");
+
 var webapi = require('common_webapi');
-//webapi.enableDebug();
 var isDebug = false;
+
 exports.enableDebug = function() {
 	isDebug = true;
+	webapi.enableDebug();
 };
 
 exports.disableDebug = function() {
 	isDebug = false;
+	webapi.disableDebug();
 };
 
 //data(, success, fail)
