@@ -178,7 +178,7 @@ exports.pcpnMerge = function(para) {
 		Ti.API.error('必要參數para.data.message 未正確提供!');
 		return;
 	}
-	if (!para.data.rowdata || !_.isString(para.data.rowdata)) {
+	if (!para.data.rowdata || !_.isObject(para.data.rowdata)) {
 		Ti.API.error('必要參數para.data.rowdata 未正確提供!');
 		return;
 	}
@@ -234,7 +234,7 @@ exports.cppnMerge = function(para) {
 		Ti.API.error('必要參數para.data.message 未正確提供!');
 		return;
 	}
-	if (!para.data.rowdata || !_.isString(para.data.rowdata)) {
+	if (!para.data.rowdata || !_.isObject(para.data.rowdata)) {
 		Ti.API.error('必要參數para.data.rowdata 未正確提供!');
 		return;
 	}
