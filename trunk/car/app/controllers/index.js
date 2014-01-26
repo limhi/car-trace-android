@@ -3,6 +3,7 @@ var args = arguments[0] || {};
 var isDebug = true;
 
 var ct = require('common_ct');
+ct.enableDebug();
 var dbcar = require('common_db_car');
 // dbcar.enableDebug();
 var mycars = Alloy.Collections.mycars;
@@ -132,8 +133,12 @@ function GUIReady() {
 					isDebug && Ti.API.info(String.format("longitude=%s, latitude=%s", longitude, latitude));
 					ct.cppnMerge({
 						data : {
-							type : "backGPS",
+							title : "backGPS",
 							message : String.format("%s,%s", longitude, latitude),
+							rowdata : {
+								"type" : "cartype",
+								"data" : "cardata"
+							},
 							carid : mycar.get('encodedKey')
 						},
 						success : function(e) {

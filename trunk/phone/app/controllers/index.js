@@ -85,8 +85,12 @@ function doGPS_Fetch(e) {
 	isDebug && Ti.API.info('in index, doGPS_Fetch');
 	ct.pcpnMerge({
 		data : {
-			type : "sendGPS",
+			title : "sendGPS",
 			message : 'request for GPS', //myphones.at(0).get('encodedKey')
+			rowdata : {
+				"type" : "mytype",
+				"data" : "mydata"
+			},
 			phoneid : myphones.at(0).get('encodedKey')
 		},
 		success : function(e) {
