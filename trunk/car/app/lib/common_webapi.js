@@ -10,6 +10,8 @@ exports.disableDebug = function() {
 	isDebug = false;
 };
 
+var retryMax = 3;
+
 //ip, url, method, json, success, fail, update
 exports.connect = function(para) {
 	var checkValid = isValidPara(para);
@@ -29,7 +31,7 @@ exports.connect = function(para) {
 	MyLoad(para);
 };
 
-function MyLoad(para) {
+function MyLoad(para, retryCount) {
 	var ip = para.data.ip;
 	var url = para.data.url;
 	var method = para.data.method;
@@ -37,6 +39,9 @@ function MyLoad(para) {
 
 	var success = para.success;
 	var fail = para.fail;
+
+	if (!retryCount)
+		retryCount = 0;
 
 	var urlStr = "";
 	urlStr = String.format("%s%s", para.data.ip, para.data.url);
@@ -67,9 +72,18 @@ function MyLoad(para) {
 	};
 
 	xhr.onerror = function(e) {
+		Ti.API.error("onerror in MyLoad, in common_webapi, error : " + JSON.stringify(e));
 		var respText = this.responseText;
 		Ti.API.error('onerror in MyLoad, in common_webapi, this.responseText = ' + respText);
-		fail(respText);
+		retryCount++;
+		if (retryCount <= retryMax) {
+			Ti.API.error('onerror in MyLoad, retryCount = ' + retryCount);
+			MyLoad(para, retryCount);
+		} else {
+			Ti.API.error('onerror in MyLoad, retryCount: ' + retryCount + ' over retryMax :' + retryMax);
+			Ti.API.error('send respText to para.fail');
+			fail(respText);
+		}
 	};
 
 	xhr.open(method, urlStr);
@@ -138,4 +152,3 @@ function isValidPara(para) {
 
 	return ret;
 };
-
