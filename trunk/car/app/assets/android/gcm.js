@@ -6,12 +6,13 @@
 	try {
 		var Alloy = require('alloy');
 		isDebug && Ti.API.info('gcm js service!, reuqire alloy OK');
+		isDebug && Ti.API.info('gcm js service!, Alloy.Globals.senderID = ' + Alloy.Globals.senderID);
 	} catch(e) {
 		Ti.API.error('gcm js service, error = ' + e);
 	}
 	var serviceIntent = service.getIntent();
-	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(type) = ' + serviceIntent.hasExtra('type'));
-	var type = serviceIntent.hasExtra('type') ? serviceIntent.getStringExtra('type') : '';
+	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(rowdata) = ' + serviceIntent.hasExtra('rowdata'));
+	var rowdata = serviceIntent.hasExtra('rowdata') ? serviceIntent.getStringExtra('rowdata') : '';
 
 	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(title) = ' + serviceIntent.hasExtra('title'));
 	var title = serviceIntent.hasExtra('title') ? serviceIntent.getStringExtra('title') : '';
@@ -19,9 +20,6 @@
 	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(message) = ' + serviceIntent.hasExtra('message'));
 	var statusBarMessage = serviceIntent.hasExtra('message') ? serviceIntent.getStringExtra('message') : '';
 	var message = serviceIntent.hasExtra('message') ? serviceIntent.getStringExtra('message') : '';
-
-	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(score) = ' + serviceIntent.hasExtra('score'));
-	var score = serviceIntent.hasExtra('score') ? serviceIntent.getStringExtra('score') : '';
 
 	var notificationId = (function() {
 		// android notifications ids are int32
@@ -56,13 +54,15 @@
 	})();
 
 	isDebug && Ti.API.info('into service, notificationId = ' + notificationId);
-	isDebug && Ti.API.info('into service, type = ' + type);
+	isDebug && Ti.API.info('into service, title = ' + title);
+	isDebug && Ti.API.info('into service, message = ' + message);
+	isDebug && Ti.API.info('into service, rowdata = ' + rowdata);
 
 	// create launcher intent
 	var ntfId = Ti.App.Properties.getInt('ntfId', 0);
 
 	isDebug && Ti.API.info('into service, ntfId = ' + ntfId);
-	if (type === 'sendGPS') {
+	if (title === 'sendGPS') {
 		var ct = require('common_ct');
 		try {
 			var Alloy = require('alloy');
@@ -81,7 +81,7 @@
 			// isDebug && Ti.API.info('_.isObject(Backbone) = ' + _.isObject(Backbone));
 			// isDebug && Ti.API.info('Backbone = ' + Backbone);
 
-			Alloy.Globals.appEngineIP = 'https://car-trace.appspot.com/_ah/api/';
+			//Alloy.Globals.appEngineIP = 'https://car-trace.appspot.com/_ah/api/';
 			// Alloy.Globals.appVersion = '1.0';
 			// Alloy.Globals.senderID = '283904388775';
 			// Alloy.Globals.registerID = '';
@@ -93,7 +93,7 @@
 			// isDebug && Ti.API.info('ct = ' + ct);
 			// ct.enableDebug();
 
-			Alloy.Collections.mycars = Alloy.createCollection('mycars');
+			//Alloy.Collections.mycars = Alloy.createCollection('mycars');
 			var mycars = Alloy.Collections.mycars;
 			// isDebug && Ti.API.info('_.isObject(mycars) = ' + _.isObject(mycars));
 			// isDebug && Ti.API.info('mycars = ' + mycars);
@@ -129,8 +129,12 @@
 				isDebug && Ti.API.info(String.format("longitude=%s, latitude=%s", longitude, latitude));
 				ct.cppnMerge({
 					data : {
-						type : "backGPS",
+						title : "backGPS",
 						message : String.format("%s,%s", longitude, latitude),
+						rowdata : {
+							"type" : "cartype",
+							"data" : "cardata"
+						},
 						carid : mycar.get('encodedKey')
 					},
 					success : function(e) {
