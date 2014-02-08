@@ -182,6 +182,12 @@ exports.pcpnMerge = function(para) {
 		Ti.API.error('必要參數para.data.rowdata 未正確提供!');
 		return;
 	}
+	//檢查選要參數
+	var ip = Alloy.Globals.appEngineIP;
+	if (para.data.ip && _.isString(para.data.ip)) {
+		Ti.API.info('選要參數para.data.ip 已正確提供, 取代內定值!');
+		ip = para.data.ip;
+	}
 
 	//取得參數
 	var phoneid = para.data.phoneid;
@@ -201,7 +207,7 @@ exports.pcpnMerge = function(para) {
 	//呼叫web api warpper
 	webapi.connect({
 		data : {
-			ip : Alloy.Globals.appEngineIP,
+			ip : ip,
 			url : URL,
 			method : 'post',
 			json : sendObj
@@ -238,6 +244,12 @@ exports.cppnMerge = function(para) {
 		Ti.API.error('必要參數para.data.rowdata 未正確提供!');
 		return;
 	}
+	//檢查選要參數
+	var ip = Alloy.Globals.appEngineIP;
+	if (para.data.ip && _.isString(para.data.ip)) {
+		Ti.API.info('選要參數para.data.ip 已正確提供, 取代內定值!');
+		ip = para.data.ip;
+	}
 
 	//取得參數
 	var carid = para.data.carid;
@@ -257,7 +269,7 @@ exports.cppnMerge = function(para) {
 	//呼叫web api warpper
 	webapi.connect({
 		data : {
-			ip : Alloy.Globals.appEngineIP,
+			ip : ip,
 			url : URL,
 			method : 'post',
 			json : sendObj
@@ -286,6 +298,12 @@ exports.pcpnSend = function(para) {
 		Ti.API.error('必要參數para.data.messageid 未正確提供!');
 		return;
 	}
+	//檢查選要參數
+	var ip = Alloy.Globals.appEngineIP;
+	if (para.data.ip && _.isString(para.data.ip)) {
+		Ti.API.info('選要參數para.data.ip 已正確提供, 取代內定值!');
+		ip = para.data.ip;
+	}
 
 	//取得參數
 	var phoneid = para.data.phoneid;
@@ -299,7 +317,7 @@ exports.pcpnSend = function(para) {
 	//呼叫web api warpper
 	webapi.connect({
 		data : {
-			ip : Alloy.Globals.appEngineIP,
+			ip : ip,
 			url : URL,
 			method : 'post',
 			json : sendObj
@@ -328,6 +346,12 @@ exports.cppnSend = function(para) {
 		Ti.API.error('必要參數para.data.messageid 未正確提供!');
 		return;
 	}
+	//檢查選要參數
+	var ip = Alloy.Globals.appEngineIP;
+	if (para.data.ip && _.isString(para.data.ip)) {
+		Ti.API.info('選要參數para.data.ip 已正確提供, 取代內定值!');
+		ip = para.data.ip;
+	}
 
 	//取得參數
 	var carid = para.data.carid;
@@ -341,7 +365,7 @@ exports.cppnSend = function(para) {
 	//呼叫web api warpper
 	webapi.connect({
 		data : {
-			ip : Alloy.Globals.appEngineIP,
+			ip : ip,
 			url : URL,
 			method : 'post',
 			json : sendObj
@@ -350,3 +374,89 @@ exports.cppnSend = function(para) {
 		fail : para.fail,
 	});
 };
+
+//data(, success, fail)
+exports.fetchImageURL = function(para) {
+	//檢查必要參數
+	if (!para) {
+		Ti.API.error('必要參數para 未提供!');
+		return;
+	}
+	if (!para.data || !_.isObject(para.data)) {
+		Ti.API.error('必要參數para.data 未正確提供!');
+		return;
+	}
+	if (!para.data.devid || !_.isString(para.data.devid)) {
+		Ti.API.error('必要參數para.data.devid 未正確提供!');
+		return;
+	}
+	//檢查選要參數
+	var ip = Alloy.Globals.appEngineIP;
+	if (para.data.ip && _.isString(para.data.ip)) {
+		Ti.API.info('選要參數para.data.ip 已正確提供, 取代內定值!');
+		ip = para.data.ip;
+	}
+
+	//取得參數
+
+	//設定呼叫參數
+	var URL = "ctimageupload/v1/postCTUploadURL/" + para.data.devid;
+
+	var sendObj = {};
+	//呼叫web api warpper
+	webapi.connect({
+		data : {
+			ip : ip,
+			url : URL,
+			method : 'post',
+			json : sendObj
+		},
+		success : para.success,
+		fail : para.fail,
+	});
+};
+
+//data(, success, fail)
+exports.uploadImage = function(para) {
+	//檢查必要參數
+	if (!para) {
+		Ti.API.error('必要參數para 未提供!');
+		return;
+	}
+	if (!para.data || !_.isObject(para.data)) {
+		Ti.API.error('必要參數para.data 未正確提供!');
+		return;
+	}
+	if (!para.data.uploadurl || !_.isString(para.data.uploadurl)) {
+		Ti.API.error('必要參數para.data.uploadurl 未正確提供!');
+		return;
+	}
+	if (!para.data.devid || !_.isString(para.data.devid)) {
+		Ti.API.error('必要參數para.data.devid 未正確提供!');
+		return;
+	}
+	if (!para.data.uploadimage || !_.isObject(para.data.uploadimage)) {
+		Ti.API.error('必要參數para.data.uploadimage 未正確提供!');
+		return;
+	}
+
+	//取得參數
+
+	//設定呼叫參數
+	var URL = para.data.uploadurl;
+
+	var sendObj = {
+		devid : para.data.devid,
+		image : para.data.uploadimage
+	};
+	//呼叫web api warpper
+	webapi.upload({
+		data : {
+			url : URL,
+			json : sendObj
+		},
+		success : para.success,
+		fail : para.fail,
+	});
+};
+
