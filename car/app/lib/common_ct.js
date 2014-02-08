@@ -390,12 +390,6 @@ exports.fetchImageURL = function(para) {
 		Ti.API.error('必要參數para.data.devid 未正確提供!');
 		return;
 	}
-	//檢查選要參數
-	var ip = Alloy.Globals.appEngineIP;
-	if (para.data.ip && _.isString(para.data.ip)) {
-		Ti.API.info('選要參數para.data.ip 已正確提供, 取代內定值!');
-		ip = para.data.ip;
-	}
 
 	//取得參數
 
@@ -406,7 +400,7 @@ exports.fetchImageURL = function(para) {
 	//呼叫web api warpper
 	webapi.connect({
 		data : {
-			ip : ip,
+			ip : Alloy.Globals.appEngineIP,
 			url : URL,
 			method : 'post',
 			json : sendObj
@@ -435,6 +429,10 @@ exports.uploadImage = function(para) {
 		Ti.API.error('必要參數para.data.devid 未正確提供!');
 		return;
 	}
+	if (!para.data.myserial || !_.isNumber(para.data.myserial)) {
+		Ti.API.error('必要參數para.data.myserial 未正確提供!');
+		return;
+	}
 	if (!para.data.uploadimage || !_.isObject(para.data.uploadimage)) {
 		Ti.API.error('必要參數para.data.uploadimage 未正確提供!');
 		return;
@@ -447,6 +445,7 @@ exports.uploadImage = function(para) {
 
 	var sendObj = {
 		devid : para.data.devid,
+		myserial : para.data.myserial,
 		image : para.data.uploadimage
 	};
 	//呼叫web api warpper
