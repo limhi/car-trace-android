@@ -179,7 +179,9 @@ function MyUploadLoad(para, retryCount) {
 	//var method = para.data.method;
 	var json = para.data.json;
 	var devid = json.devid;
+	var myserial = json.myserial;
 	var image = json.image;
+	image.mediaType = Ti.Media.MEDIA_TYPE_PHOTO;
 
 	var success = para.success;
 	var fail = para.fail;
@@ -238,7 +240,8 @@ function MyUploadLoad(para, retryCount) {
 	xhr.setTimeout(5000);
 	xhr.send({
 		myFile : image,
-		devID : devid
+		devID : devid,
+		mySerial : myserial
 	});
 };
 
@@ -259,16 +262,24 @@ function isUploadValidPara(para) {
 		return;
 	}
 	if (!para.data.json || !_.isObject(para.data.json)) {
-		Ti.API.war('isUploadValidPara, in common_webapi, can not get object json');
-		//return ret;
+		Ti.API.error('isUploadValidPara, in common_webapi, can not get object json');
+		return ret;
 	}
 	if (!para.data.json.devid || !_.isString(para.data.json.devid)) {
-		Ti.API.war('isUploadValidPara, in common_webapi, can not get devid');
-		//return ret;
+		Ti.API.error('isUploadValidPara, in common_webapi, can not get devid');
+		return ret;
+	}
+	if (!para.data.json.devid || !_.isString(para.data.json.devid)) {
+		Ti.API.error('isUploadValidPara, in common_webapi, can not get devid');
+		return ret;
+	}
+	if (!para.data.json.myserial || !_.isNumber(para.data.json.myserial)) {
+		Ti.API.error('isUploadValidPara, in common_webapi, can not get myserial');
+		return ret;
 	}
 	if (!para.data.json.image || !_.isObject(para.data.json.image)) {
-		Ti.API.war('isUploadValidPara, in common_webapi, can not get image');
-		//return ret;
+		Ti.API.error('isUploadValidPara, in common_webapi, can not get image');
+		return ret;
 	}
 	if (!para.success) {
 		isDebug && Ti.API.info('isValidPara, in common_webapi, can not get function success, use default');
