@@ -7,7 +7,7 @@ function doDownloadSettings(e) {
 	alert("尚未實作 doDownloadSettings");
 }
 
-function doEditSettings(e) {	
+function doEditSettings(e) {
 	isDebug && Ti.API.info('in index_table, doEditSettings');
 	var settingsEditController = Alloy.createController('settings/settings_table', {
 		isDebug : true
@@ -21,12 +21,24 @@ function doUploadSettings(e) {
 	alert("尚未實作 doUploadSettings");
 }
 
+function transformData(model) {
+	var attrs = model.toJSON();
+	Ti.API.info('in index_table, in transformData, model = ' + JSON.stringify(model));
+	// attrs.imageUrl = '/' + attrs.direction + '.png';
+	// attrs.upperCaseName = attrs.name.toUpperCase();
+	return attrs;
+}
+
 function myback() {
 	$.index_table.close();
 }
 
 $.header.on('rightFunction', function(e) {
 	isDebug && Ti.API.info('in index_table, rightFunction');
+	var matchController = Alloy.createController('settings/match', {
+		isDebug : true
+	});
+	matchController && matchController.getView() && matchController.getView().open();
 });
 
 $.header.on('back', myback);
@@ -34,3 +46,5 @@ $.header.on('back', myback);
 $.index_table.addEventListener('androidback', function() {
 	myback();
 });
+
+updateUI();

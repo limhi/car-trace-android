@@ -1,7 +1,7 @@
 <Alloy>
-	<TableViewRow layout="horizontal">
-		<Label left="2%" width="48%" text="4939-QT"/>
-		<Label left="2%" right="2%" width="21%" text="Rename"/>
+	<TableViewRow id='rowTVR' layout="horizontal" onClick="myClick" carid='{carID}' selected='{selected}'>
+		<Label id='selectL' left="2%" right="2%" width="21%" text="none"/>
+		<Label left="2%" width="46%" text='{showname}'/>
 		<Label left="2%" right="2%" width="21%" text="Delete"/>
 	</TableViewRow>
 </Alloy>
