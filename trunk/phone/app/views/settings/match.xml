@@ -3,6 +3,7 @@
 		<Require id="header" src="header" title='Match Car' hideFunctionButton="true" />
 		<TextField id='RandomidTF' value='' hintText='please enter random id' />
 		<Button id="MatchB" onClick="doMatch">Match Car</Button>
+		<TextField id='ShowTF' enabled="false" value='請輸入設備上的配對數字' />
 		<TableView id="MatchTV" height="80%" layout="vertical" dataCollection="mymatches" dataFunction="updateUI" dataTransform="transformData" onClick="removeItem">
 			<TableViewRow layout="horizontal" >
 				<Label id="carL" width='Ti.UI.SIZE' height="Ti.UI.SIZE" text='{carID}'/>

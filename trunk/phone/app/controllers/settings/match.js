@@ -38,19 +38,27 @@ function doMatch(e) {
 			isDebug && Ti.API.info('in match, in doMatch, success, modelArray.length = ' + modelArray.length);
 			//如果還沒連結過
 			if (_.isArray(modelArray) && modelArray.length === 0) {
+				var selected = 'N';
+				if (mymatches.length === 0)
+					selected = 'Y';
+
 				dbmatch.addItem(mymatches, {
 					encodedKey : m.encodedKey,
 					carID : m.carID,
 					phoneID : m.phoneID,
+					selected : selected,
+					showname : '配對車輛',
 					addTime : m.addTime,
 					modTime : m.modTime
 				});
 				updateUI();
 			}
+			$.ShowTF.value = '配對成功';
 			$.RandomidTF.value = '';
 		},
 		fail : function(m) {
 			Ti.API.error('in match, in doMatch, fail, message = ' + JSON.stringify(m));
+			$.ShowTF.value = '配對失敗';
 		}
 	});
 }
