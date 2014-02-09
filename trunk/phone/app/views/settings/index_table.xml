@@ -1,7 +1,7 @@
 <Alloy>
 	<Window class="container" layout="vertical">
 		<Require id="header" src="header" title='CarList' functionTitle='Add' hideFunctionButton="false" />
-		<TableView layout="vertical" height="75%" headerTitle='Cars List'>
+		<TableView id="MatchTV" height="75%" layout="vertical" headerTitle='Cars List' dataCollection="mymatches" dataFunction="updateUI" dataTransform="transformData">
 			<Require src="settings/index_row"/>
 		</TableView>
 		<View height="10%">

@@ -5,6 +5,8 @@ migration.up = function(migrator) {
 			encodedKey : 'TEXT',
 			carID : 'TEXT',
 			phoneID : 'TEXT',
+			selected : 'TEXT',
+			showname : 'TEXT',
 			addTime : 'TEXT',
 			modTime : 'TEXT'
 		}
