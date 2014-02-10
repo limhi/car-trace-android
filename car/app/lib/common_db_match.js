@@ -21,6 +21,8 @@ exports.addItem = function(collection, para) {
 			encodedKey : para.encodedKey,
 			carID : para.carID,
 			phoneID : para.phoneID,
+			selected : para.selected,
+			showname : para.showname,
 			addTime : para.addTime,
 			modTime : para.modTime
 		});
@@ -64,6 +66,8 @@ exports.setOnlyItem = function(collection, para) {
 			encodedKey : para.encodedKey,
 			carID : para.carID,
 			phoneID : para.phoneID,
+			selected : para.selected,
+			showname : para.showname,
 			addTime : para.addTime,
 			modTime : para.modTime
 		});
@@ -106,5 +110,5 @@ exports.removeItem = function(collection, index) {
 };
 
 exports.comparator = function(model) {
-	return model.get('timestamp');
+	return model.get('modTime');
 };
