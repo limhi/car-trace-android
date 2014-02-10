@@ -148,6 +148,17 @@ function GUISetup() {
 		}
 	}
 
+	if (mymatches.length > 0) {
+		var modelArray = mymatches.where({
+			'selected' : 'Y'
+		});
+		if (modelArray.length > 0) {
+			var mymatch = modelArray[0];
+			isDebug && Ti.API.info('in GUISetup, mymatch = ' + JSON.stringify(mymatch));
+			$.CarNumberL.text = mymatch.get('showname');
+		}
+	}
+
 }
 
 function GUIReady() {
