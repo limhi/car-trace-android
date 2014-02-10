@@ -9,13 +9,15 @@ var dbcar = require('common_db_car');
 var mycars = Alloy.Collections.mycars;
 var mymatches = Alloy.Collections.mymatches;
 
-(function(activity) {
-	Ti.API.info('into index gcm activity!');
+(function(activity, gcm) {
+	Ti.API.info('into index gcm activity, gcm = ' + gcm);
+	Ti.API.info('into index gcm activity, gcm.data = ' + gcm.data);
 
 	var intent = activity.intent;
 
-	var gcm = {};
+	// var gcm = {};
 	gcm.data = {};
+
 	// HERE we catch the intent extras of our notifications
 	if (intent.hasExtra('ntfId')) {
 		// and then we'll use 'data' property to pass info to the app (see pendingData lines of the 1st snippet)
@@ -30,7 +32,7 @@ var mymatches = Alloy.Collections.mymatches;
 	Ti.API.info('index gcm activity, gcm.mainActivityClassName = ' + gcm.mainActivityClassName);
 
 	Ti.API.info('index gcm activity end');
-})(Ti.Android.currentActivity);
+})(Ti.Android.currentActivity, require('net.iamyellow.gcmjs'));
 
 function doRegister(e) {
 	isDebug && Ti.API.info('in index, doRegister');
@@ -44,6 +46,10 @@ function doRegister(e) {
 		success : function(m) {
 			isDebug && Ti.API.info('in index, in doRegister, success, message = ' + JSON.stringify(m));
 			dbcar.setOnlyItem(mycars, m);
+			isDebug && Ti.API.info("in index, in doRegister, success, m.encodedKey = " + m.encodedKey);
+			Ti.App.Properties.setString('carid', m.encodedKey);
+			isDebug && Ti.API.info("in index, in doRegister, success, Alloy.Globals.appEngineIP = " + Alloy.Globals.appEngineIP);
+			Ti.App.Properties.setString('ip', Alloy.Globals.appEngineIP);
 			GUISetup();
 		},
 		fail : function(m) {
