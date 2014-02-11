@@ -170,6 +170,10 @@ exports.pcpnMerge = function(para) {
 		Ti.API.error('必要參數para.data.phoneid 未正確提供!');
 		return;
 	}
+	if (!para.data.carid || !_.isString(para.data.carid)) {
+		Ti.API.error('必要參數para.data.carid 未正確提供!');
+		return;
+	}
 	if (!para.data.title || !_.isString(para.data.title)) {
 		Ti.API.error('必要參數para.data.title 未正確提供!');
 		return;
@@ -191,17 +195,20 @@ exports.pcpnMerge = function(para) {
 
 	//取得參數
 	var phoneid = para.data.phoneid;
+	var carid = para.data.carid;
 	var title = para.data.title;
 	var message = para.data.message;
 	var rowdata = para.data.rowdata;
 
 	//設定呼叫參數
 	var URL = "ctpush/v1/postPCPushNotification";
-	URL = String.format("%s/%s", URL, phoneid);
+	//URL = String.format("%s/%s", URL, phoneid);
 
 	var sendObj = {
 		title : title,
 		message : message,
+		phoneID : phoneid,
+		carID : carid,
 		rowdata : rowdata
 	};
 	//呼叫web api warpper
