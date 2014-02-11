@@ -83,6 +83,16 @@ function doMatch(e) {
 
 function doGPS_Fetch(e) {
 	isDebug && Ti.API.info('in index, doGPS_Fetch');
+	var carid = '';
+	var modelArray = mymatches.where({
+		'selected' : 'Y'
+	});
+	if (modelArray.length > 0) {
+		var mymatch = modelArray[0];
+		isDebug && Ti.API.info('in index, doGPS_Fetch, mymatch = ' + JSON.stringify(mymatch));
+		carid = mymatch.get('carID');
+	}
+
 	ct.pcpnMerge({
 		data : {
 			title : "sendGPS",
@@ -91,7 +101,8 @@ function doGPS_Fetch(e) {
 				"type" : "mytype",
 				"data" : "mydata"
 			},
-			phoneid : myphones.at(0).get('encodedKey')
+			phoneid : myphones.at(0).get('encodedKey'),
+			carid : carid
 		},
 		success : function(e) {
 			isDebug && Ti.API.info('in index, in doGPS_Fetch, pcpnMerge, success, message = ' + JSON.stringify(e));
