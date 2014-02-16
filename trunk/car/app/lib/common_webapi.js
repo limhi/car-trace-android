@@ -181,7 +181,7 @@ function MyUploadLoad(para, retryCount) {
 	var devid = json.devid;
 	var myserial = json.myserial;
 	var image = json.image;
-	image.mediaType = Ti.Media.MEDIA_TYPE_PHOTO;
+	// image.mediaType = Ti.Media.MEDIA_TYPE_PHOTO;
 
 	var success = para.success;
 	var fail = para.fail;
