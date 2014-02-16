@@ -266,11 +266,12 @@ exports.cppnMerge = function(para) {
 
 	//設定呼叫參數
 	var URL = "ctpush/v1/postCPPushNotification";
-	URL = String.format("%s/%s", URL, carid);
+	//URL = String.format("%s/%s", URL, carid);
 
 	var sendObj = {
 		title : title,
 		message : message,
+		carID : carid,
 		rowdata : rowdata
 	};
 	//呼叫web api warpper
