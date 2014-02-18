@@ -1,6 +1,6 @@
 var args = arguments[0] || {};
 
-var isDebug = 'true';
+var isDebug = true;
 
 var ct = require('common_ct');
 ct.enableDebug();
@@ -11,28 +11,32 @@ var mymatches = Alloy.Collections.mymatches;
 
 var longitude, latitude;
 
-(function(activity) {
-	Ti.API.info('into index gcm activity!');
+(function(activity, gcm) {
+	isDebug && Ti.API.info('into index gcm activity!');
 
 	var intent = activity.intent;
 
-	var gcm = {};
-	gcm.data = {};
+	// var gcm = {};
+	// gcm.data = {};
+	if (gcm)
+		if (!gcm.data)
+			gcm.data = {};
 	// HERE we catch the intent extras of our notifications
 	if (intent.hasExtra('ntfId')) {
 		// and then we'll use 'data' property to pass info to the app (see pendingData lines of the 1st snippet)
-		gcm.data = {
-			ntfId : intent.getIntExtra('ntfId', 0)
-		};
+		// gcm.data = {
+		// ntfId : intent.getIntExtra('ntfId', 0)
+		// };
+		gcm.data.ntfId = intent.getIntExtra('ntfId', 0);
 	}
 
-	Ti.API.info('index gcm activity, gcm.data.ntfId = ' + gcm.data.ntfId);
-	Ti.API.info('index gcm activity, gcm.data.data = ' + gcm.data.data);
-	Ti.API.info('index gcm activity, gcm.isLauncherActivity = ' + gcm.isLauncherActivity);
-	Ti.API.info('index gcm activity, gcm.mainActivityClassName = ' + gcm.mainActivityClassName);
+	isDebug && Ti.API.info('index gcm activity, gcm.data.ntfId = ' + gcm.data.ntfId);
+	isDebug && Ti.API.info('index gcm activity, gcm.data.data = ' + gcm.data.data);
+	isDebug && Ti.API.info('index gcm activity, gcm.isLauncherActivity = ' + gcm.isLauncherActivity);
+	isDebug && Ti.API.info('index gcm activity, gcm.mainActivityClassName = ' + gcm.mainActivityClassName);
 
-	Ti.API.info('index gcm activity end');
-})(Ti.Android.currentActivity);
+	isDebug && Ti.API.info('index gcm activity end');
+})(Ti.Android.currentActivity, require('net.iamyellow.gcmjs'));
 
 function doRegister(e) {
 	isDebug && Ti.API.info('in index, doRegister');
@@ -44,24 +48,24 @@ function doRegister(e) {
 			"senderID" : Alloy.Globals.senderID
 		},
 		success : function(m) {
-			isDebug && Ti.API.info('in index, in doRegister, success, message = ' + JSON.stringify(m));
+			isDebug && Ti.API.info('in index->doRegister, success, message = ' + JSON.stringify(m));
 			dbphone.setOnlyItem(myphones, m);
 			GUISetup();
 		},
 		fail : function(m) {
-			Ti.API.error('in index, in doRegister, fail, message = ' + JSON.stringify(m));
+			Ti.API.error('in index->doRegister, fail, message = ' + JSON.stringify(m));
 			GUISetup();
 		}
 	});
 }
 
 function doVersion(e) {
-	Ti.API.info('in index, doVersion');
+	isDebug && Ti.API.info('in index, doVersion');
 	alert("尚未實作doVersion");
 }
 
 function doCarNumber(e) {
-	Ti.API.info('in index, doCarNumber');
+	isDebug && Ti.API.info('in index, doCarNumber');
 	alert("尚未實作doCarNumber");
 }
 
@@ -92,38 +96,72 @@ function doGPS_Fetch(e) {
 		isDebug && Ti.API.info('in index, doGPS_Fetch, mymatch = ' + JSON.stringify(mymatch));
 		carid = mymatch.get('carID');
 	}
+	var phoneid = myphones.at(0).get('encodedKey');
 
+	mySendPushNotification(carid, phoneid, "sendGPS", 'request for GPS', {
+		"type" : "mytype",
+		"data" : "mydata"
+	});
+}
+
+function doPicture_Fetch(e) {
+	isDebug && Ti.API.info('in index, doPicture_Fetch');
+	var carid = '';
+	var modelArray = mymatches.where({
+		'selected' : 'Y'
+	});
+	if (modelArray.length > 0) {
+		var mymatch = modelArray[0];
+		isDebug && Ti.API.info('in index, doPicture_Fetch, mymatch = ' + JSON.stringify(mymatch));
+		carid = mymatch.get('carID');
+	}
+	var phoneid = myphones.at(0).get('encodedKey');
+
+	mySendPushNotification(carid, phoneid, "sendPicture", 'request for Picture', {
+		"type" : "mytype",
+		"data" : "mydata"
+	});
+}
+
+function mySendPushNotification(carid, phoneid, title, message, rowdata) {
+	isDebug && Ti.API.info('in index, mySendPushNotification');
+
+	isDebug && Ti.API.info('in index->mySendPushNotification, carid = ' + JSON.stringify(carid));
+	isDebug && Ti.API.info('in index->mySendPushNotification, phoneid = ' + JSON.stringify(phoneid));
+	isDebug && Ti.API.info('in index->mySendPushNotification, title = ' + JSON.stringify(title));
+	isDebug && Ti.API.info('in index->mySendPushNotification, message = ' + JSON.stringify(message));
+	isDebug && Ti.API.info('in index->mySendPushNotification, rowdata = ' + JSON.stringify(rowdata));
 	ct.pcpnMerge({
 		data : {
-			title : "sendGPS",
-			message : 'request for GPS', //myphones.at(0).get('encodedKey')
-			rowdata : {
-				"type" : "mytype",
-				"data" : "mydata"
-			},
-			phoneid : myphones.at(0).get('encodedKey'),
+			title : title,
+			message : message,
+			rowdata : rowdata,
+			phoneid : phoneid,
 			carid : carid
 		},
 		success : function(e) {
-			isDebug && Ti.API.info('in index, in doGPS_Fetch, pcpnMerge, success, message = ' + JSON.stringify(e));
+			isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success, message = ' + JSON.stringify(e));
 			var messageid = e.messageID;
-			isDebug && Ti.API.info('in index, in doGPS_Fetch, pcpnMerge, success, messageid = ' + messageid);
+			isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success, messageid = ' + messageid);
 
 			ct.pcpnSend({
 				data : {
-					phoneid : myphones.at(0).get('encodedKey'),
+					phoneid : phoneid,
 					messageid : messageid
 				},
 				success : function(ev) {
-					isDebug && Ti.API.info('in index, in doGPS_Fetch, pcpnSend, success, message = ' + JSON.stringify(ev));
+					isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success->pcpnSend, success, title = ' + title + ', message = ' + JSON.stringify(ev));
+					$.MessageTA.value = 'in index->mySendPushNotification->pcpnMerge, success->pcpnSend, success, title = ' + title + ', message = ' + JSON.stringify(ev);
 				},
 				fail : function(ev) {
-					Ti.API.error('in index, in doGPS_Fetch, pcpnSend, fail, message = ' + JSON.stringify(ev));
+					Ti.API.error('in index->mySendPushNotification->pcpnMerge, success->pcpnSend, fail, title = ' + title + ', message = ' + JSON.stringify(ev));
+					$.MessageTA.value = 'in index->mySendPushNotification->pcpnMerge, success->pcpnSend, fail, title = ' + title + ', message = ' + JSON.stringify(ev);
 				}
 			});
 		},
 		fail : function(e) {
-			Ti.API.error('in index, in doGPS_Fetch, pcpnMerge, fail, message = ' + JSON.stringify(m));
+			Ti.API.error('in index->mySendPushNotification->pcpnMerge, fail, title = ' + title + ', message = ' + JSON.stringify(m));
+			$.MessageTA.value += '\nin index->mySendPushNotification->pcpnMerge, fail, title = ' + title + ', message = ' + JSON.stringify(m);
 		}
 	});
 }
@@ -142,7 +180,7 @@ function doMap(e) {
 
 function GUISetup() {
 	$.RegisterB.enabled = true;
-	$.MatchB.enabled = false;
+	$.MatchB.enabled = true;
 	$.GPS_FetchB.enabled = false;
 	$.MessageTA.value = '';
 	myphones.fetch();
@@ -156,6 +194,7 @@ function GUISetup() {
 		if (mymatches.length !== 0) {
 			$.MessageTA.value += '\nmatch with ' + mymatches.length + ' devices';
 			$.GPS_FetchB.enabled = true;
+			$.Picture_FetchB.enabled = true;
 		}
 	}
 
@@ -183,46 +222,52 @@ function GUIReady() {
 		// and we set extras for the intent
 		// and the app WAS NOT running
 		// (don't worry, we'll see more of this later)
-		Ti.API.info('******* data (started) ' + JSON.stringify(pendingData));
+		isDebug && Ti.API.info('******* data (started) ' + JSON.stringify(pendingData));
 	}
 
 	gcm.registerForPushNotifications({
 		success : function(ev) {
 			// on successful registration
-			Ti.API.info('******* success, ' + ev.deviceToken);
+			isDebug && Ti.API.info('******* success, ' + ev.deviceToken);
 			Alloy.Globals.registerID = ev.deviceToken;
 			doRegister();
 		},
 		error : function(ev) {
 			// when an error occurs
-			Ti.API.info('******* error, ' + ev.error);
+			isDebug && Ti.API.info('******* error, ' + ev.error);
 			GUISetup();
 		},
 		callback : function(ev) {
 			// when a gcm notification is received WHEN the app IS IN FOREGROUND
-			Ti.API.info('******* callback, ' + JSON.stringify(ev));
-			$.GPSInfoTA.visible = true;
-			$.GPSInfoTA.value = 'get message : ' + JSON.stringify(ev);
-			var message = ev.message;
-			var myArr = message.split(',');
-			if (myArr.length === 2) {
-				longitude = myArr[0];
-				latitude = myArr[1];
-			}
-			$.MapB.visible = true;
+			isDebug && Ti.API.info('******* callback, ' + JSON.stringify(ev));
+			// $.GPSInfoTA.visible = true;
+			// $.GPSInfoTA.value = 'get message : ' + JSON.stringify(ev);
+			$.MessageTA.value = 'get message : ' + JSON.stringify(ev);
+			if (ev && ev.title && ev.message) {
+				var title = ev.title;
+				var message = ev.message;
+				if (title === "backGPS") {
+					var myArr = message.split(',');
+					if (myArr.length === 2) {
+						longitude = myArr[0];
+						latitude = myArr[1];
+					}
+					$.MapB.visible = true;
 
-			alert('get message : ' + JSON.stringify(ev));
+					alert('get message : ' + JSON.stringify(ev));
+				}
+			}
 		},
 		unregister : function(ev) {
 			// on unregister
-			Ti.API.info('******* unregister, ' + ev.deviceToken);
+			isDebug && Ti.API.info('******* unregister, ' + ev.deviceToken);
 		},
 		data : function(data) {
 			// if we're here is because user has clicked on the notification
 			// and we set extras in the intent
 			// and the app WAS RUNNING (=> RESUMED)
 			// (again don't worry, we'll see more of this later)
-			Ti.API.info('******* data (resumed) ' + JSON.stringify(data));
+			isDebug && Ti.API.info('******* data (resumed) ' + JSON.stringify(data));
 		}
 	});
 }
