@@ -40,6 +40,7 @@
 	<property name="GCM_sender_id" type="string">283904388775</property>
 	<modules>
 		<module platform="android">net.iamyellow.gcmjs</module>
+		<module version="2.2.1">ti.imagefactory</module>
 	</modules>
 	<deployment-targets>
 		<target device="iphone">false</target>
