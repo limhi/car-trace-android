@@ -384,6 +384,63 @@ exports.cppnSend = function(para) {
 };
 
 //data(, success, fail)
+exports.duList = function(para) {
+	//檢查必要參數
+	if (!para) {
+		Ti.API.error('必要參數para 未提供!');
+		return;
+	}
+	if (!para.data || !_.isObject(para.data)) {
+		Ti.API.error('必要參數para.data 未正確提供!');
+		return;
+	}
+	if (!para.data.carid || !_.isString(para.data.carid)) {
+		Ti.API.error('必要參數para.data.carid 未正確提供!');
+		return;
+	}
+	if (!para.data.phoneid || !_.isString(para.data.phoneid)) {
+		Ti.API.error('必要參數para.data.phoneid 未正確提供!');
+		return;
+	}
+	//檢查選要參數
+	var lastTime = '19700101000000000';
+	if (para.data.lastTime && _.isString(para.data.lastTime)) {
+		Ti.API.info('選要參數para.data.lastTime, 取代內定值!');
+		lastTime = para.data.lastTime;
+	}
+	var ip = Alloy.Globals.appEngineIP;
+	if (para.data.ip && _.isString(para.data.ip)) {
+		Ti.API.info('選要參數para.data.ip 已正確提供, 取代內定值!');
+		ip = para.data.ip;
+	}
+
+	//取得參數
+	var carid = para.data.carid;
+	var phoneid = para.data.phoneid;
+
+	//設定呼叫參數
+	var URL = "ctdu/v1/postDeviceUploadList";
+	// URL = String.format("%s/%s/%s", URL, carid, messageid);
+
+	var sendObj = {
+		"carID" : carid,
+		"phoneID" : phoneid,
+		"lastTime" : lastTime
+	};
+	//呼叫web api warpper
+	webapi.connect({
+		data : {
+			ip : ip,
+			url : URL,
+			method : 'post',
+			json : sendObj
+		},
+		success : para.success,
+		fail : para.fail,
+	});
+};
+
+//data(, success, fail)
 exports.fetchImageURL = function(para) {
 	//檢查必要參數
 	if (!para) {
