@@ -1,7 +1,7 @@
 <Alloy>
-	<View id="PictureView" width="80%">
-		<ImageView height="Titanium.UI.FILL" width="auto" image="/sample.png"></ImageView>
-	</View>
+	<ScrollableView id="PictureView" showPagingControl="true" width="80%" dataCollection="mymessages" dataFunction="updateUI" dataTransform="transformData">
+		<ImageView id="pictureIV" image="{picture}"/>
+	</ScrollableView>
 	<View id="MainFunctionView" width="20%">
 		<Label id="SendToL" height="25%" width="Titanium.UI.FILL" onClick="doSendTo">SendTo</Label>
 		<Label id="SnapshotL" height="25%" width="Titanium.UI.FILL" onClick="doSnapshot">Snapshot</Label>
