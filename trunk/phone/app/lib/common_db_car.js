@@ -109,6 +109,18 @@ exports.removeItem = function(collection, index) {
 
 };
 
+exports.removeAll = function(collection) {
+	collection.fetch();
+	isDebug && Ti.API.info('removeAll in common_db_car, collection.length=' + collection.length);
+
+	//clean all record in collection
+	while (collection.length > 0) {
+		collection.pop().destroy();
+	}
+
+	isDebug && Ti.API.info('removeAll in common_db_car, after reset, collection.length=' + collection.length);
+};
+
 exports.comparator = function(model) {
 	return model.get('modTime');
 };
