@@ -10,6 +10,7 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 Alloy.Globals.appEngineIP = 'https://car-trace.appspot.com/_ah/api/';
+// Alloy.Globals.appEngineIP = 'http://192.168.101.176:8888/_ah/api/';
 Alloy.Globals.appVersion = '1.0';
 Alloy.Globals.senderID = '283904388775';
 Alloy.Globals.registerID = '';
@@ -22,6 +23,10 @@ Alloy.Collections.myphones.fetch();
 //=====define myMatches model=====
 Alloy.Collections.mymatches = Alloy.createCollection('mymatches');
 Alloy.Collections.mymatches.fetch();
+
+//=====define myMessages model=====
+Alloy.Collections.mymessages = Alloy.createCollection('mymessages');
+Alloy.Collections.mymessages.fetch();
 
 Alloy.Globals.getValue = function(s, r, v) {
 	var array = Alloy.Globals.ValueArray;

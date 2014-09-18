@@ -1,11 +1,10 @@
 <Alloy>
-	<ScrollableView id="PictureView" showPagingControl="true" width="80%" dataCollection="mymessages" dataFunction="updateUI" dataTransform="transformData">
+	<ScrollableView id="PictureView" showPagingControl="false" dataCollection="mymessages" dataFunction="updateUI" dataTransform="transformData">
 		<ImageView id="pictureIV" image="{picture}"/>
 	</ScrollableView>
-	<View id="MainFunctionView" width="20%">
-		<Label id="SendToL" height="25%" width="Titanium.UI.FILL" onClick="doSendTo">SendTo</Label>
-		<Label id="SnapshotL" height="25%" width="Titanium.UI.FILL" onClick="doSnapshot">Snapshot</Label>
-		<Label id="TalkL" height="25%" width="Titanium.UI.FILL" onClick="doTalk">Talk</Label>
-		<Label id="EnableGPSL" height="25%" width="Titanium.UI.FILL" onClick="doEnableGPS">EnableGPS</Label>
-	</View>
+	<Label id="SendToL" onClick="doSendTo"/>
+	<Label id="SnapshotL" onClick="doSnapshot"/>
+	<Label id="TalkL" onClick="doTalk"/>
+	<Label id="EnableGPSL" onClick="doEnableGPS"/>
+	<ImageView id="controlBarIV"/>
 </Alloy>

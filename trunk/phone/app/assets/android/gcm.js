@@ -1,21 +1,31 @@
 /*global Ti: true, require: true */
 
 (function(service) {
-	Ti.API.info('into gcm js service!');
+	var isDebug = true;
+	isDebug && Ti.API.info('into gcm js service!');
+
+	var Alloy = require('alloy');
+	var _ = require("alloy/underscore")._;
+	var Backbone = require("alloy/backbone");
+	var ct = require('common_ct');
+	try {
+		isDebug && Ti.API.info('gcm js service!, reuqire alloy OK');
+		isDebug && Ti.API.info('gcm js service!, Alloy.Globals.senderID = ' + Alloy.Globals.senderID);
+		isDebug && Ti.API.info('gcm js service!, Alloy.Globals.appEngineIP = ' + Alloy.Globals.appEngineIP);
+	} catch(e) {
+		Ti.API.error('gcm js service, error = ' + e);
+	}
 
 	var serviceIntent = service.getIntent();
-	Ti.API.info('gcm js service, serviceIntent.hasExtra(type) = ' + serviceIntent.hasExtra('type'));
-	var type = serviceIntent.hasExtra('type') ? serviceIntent.getStringExtra('type') : '';
+	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(rowdata) = ' + serviceIntent.hasExtra('rowdata'));
+	var rowdata = serviceIntent.hasExtra('rowdata') ? serviceIntent.getStringExtra('rowdata') : '';
 
-	Ti.API.info('gcm js service, serviceIntent.hasExtra(title) = ' + serviceIntent.hasExtra('title'));
+	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(title) = ' + serviceIntent.hasExtra('title'));
 	var title = serviceIntent.hasExtra('title') ? serviceIntent.getStringExtra('title') : '';
 
-	Ti.API.info('gcm js service, serviceIntent.hasExtra(message) = ' + serviceIntent.hasExtra('message'));
-	var statusBarMessage = serviceIntent.hasExtra('message') ? serviceIntent.getStringExtra('message') : '';
+	isDebug && Ti.API.info('gcm js service, serviceIntent.hasExtra(message) = ' + serviceIntent.hasExtra('message'));
 	var message = serviceIntent.hasExtra('message') ? serviceIntent.getStringExtra('message') : '';
-
-	Ti.API.info('gcm js service, serviceIntent.hasExtra(score) = ' + serviceIntent.hasExtra('score'));
-	var score = serviceIntent.hasExtra('score') ? serviceIntent.getStringExtra('score') : '';
+	var statusBarMessage = message;
 
 	var notificationId = (function() {
 		// android notifications ids are int32
@@ -49,15 +59,17 @@
 		return str | 0;
 	})();
 
-	Ti.API.info('into service, notificationId = ' + notificationId);
-	Ti.API.info('into service, type = ' + type);
+	isDebug && Ti.API.info('into service, title = ' + title);
+	isDebug && Ti.API.info('into service, message = ' + message);
+	isDebug && Ti.API.info('into service, rowdata = ' + rowdata);
+	isDebug && Ti.API.info('into service, notificationId = ' + notificationId);
+	// isDebug && Ti.API.info('into service, type = ' + type);
 
 	// create launcher intent
 	var ntfId = Ti.App.Properties.getInt('ntfId', 0);
+	isDebug && Ti.API.info('into service, ntfId = ' + ntfId);
 
-	Ti.API.info('into service, ntfId = ' + ntfId);
-	if (type === 'backGPS') {
-		var ct = require('common_ct');
+	if (title === 'backGPS') {
 		var myphones = Alloy.Collections.myphones;
 		myphones.fetch();
 
@@ -69,7 +81,7 @@
 
 	var launcherIntent = Ti.Android.createIntent({
 		// className : 'net.iamyellow.gcmjs.GcmjsActivity',
-		className : 'org.luke.ct.car.CartraceCarActivity',
+		className : 'org.luke.ct.phone.CartracePhoneActivity',
 		action : 'action' + ntfId, // we need an action identifier to be able to track click on notifications
 		packageName : Ti.App.id,
 		flags : Ti.Android.FLAG_ACTIVITY_NEW_TASK | Ti.Android.FLAG_ACTIVITY_SINGLE_TOP
@@ -95,7 +107,7 @@
 	// increase notification id
 	ntfId += 1;
 	Ti.App.Properties.setInt('ntfId', ntfId);
-	Ti.API.info('gcm js service end!');
+	isDebug && Ti.API.info('gcm js service end!');
 
 	service.stop();
 

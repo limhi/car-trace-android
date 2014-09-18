@@ -1,0 +1,52 @@
+'#PictureView': {
+  top: '2%',
+  left: '10%',
+  width: '74%',
+  height: Titanium.UI.FILL,
+  zIndex:0,
+  borderColor: 'transparent'
+},
+'#SendToL': {
+  top: '27%',
+  left: '76%',
+  width: '7%',
+  height: '10%',
+  zIndex:2,
+  borderColor: 'transparent',
+  backgroundImage: '/images/Shield_home_screen_send_nor.png'
+},
+'#SnapshotL': {
+  top: '50%',
+  left: '60%',
+  width: '7%',
+  height: '10%',
+  zIndex:2,
+  borderColor: 'transparent',
+  backgroundImage: '/images/Shield_home_screen_camera_nor.png'
+},
+'#TalkL': {
+  top: '73%',
+  left: '76%',
+  width: '7%',
+  height: '10%',
+  zIndex:2,
+  borderColor: 'transparent',
+  backgroundImage: '/images/Shield_home_screen_talk_nor.png'
+},
+'#EnableGPSL': {
+  top: '50%',
+  left: '92%',
+  width: '7%',
+  height: '10%',
+  zIndex:2,
+  borderColor: 'transparent',
+  backgroundImage: '/images/Shield_home_screen_GPS_nor.png'
+},
+'#controlBarIV': {
+  top: '23%',
+  left: '56%',
+  width: '46%',
+  height: '66%',
+  zIndex:1,
+  image:'/images/Shield_home_screen_control_bar_bg.png'
+}

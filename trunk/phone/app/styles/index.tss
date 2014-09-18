@@ -1,0 +1,29 @@
+'#TopView': {
+  top: '0%',
+  left: '0%',
+  width: Titanium.UI.FILL,
+  height: '4%'
+},
+'#MainView': {
+  top: '5%',
+  left: '0%',
+  width: Titanium.UI.FILL,
+  height: '50%'
+},
+'#MapView': {
+  top: '55%',
+  left: '0%',
+  width: Titanium.UI.FILL,
+  height: '45%'
+},
+"Label": {
+  color: "black",
+  font: {
+    fontSize: 40,
+    fontWeight: "bold"
+  },
+  borderColor: "black",
+  borderWidth: 1,
+  textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+}
+
