@@ -4,12 +4,16 @@ var isDebug = true;
 
 var ct = require('common_ct');
 ct.enableDebug();
+var msg = require('common_db_message');
+msg.enableDebug();
+
 var dbphone = require('common_db_phone');
 // dbphone.enableDebug();
 var myphones = Alloy.Collections.myphones;
 var mymatches = Alloy.Collections.mymatches;
+var mymessages = Alloy.Collections.mymessages;
 
-var longitude, latitude;
+var longitude, latitude, carID;
 
 (function(activity, gcm) {
 	isDebug && Ti.API.info('into index gcm activity!');
@@ -61,11 +65,31 @@ function doRegister(e) {
 
 function doVersion(e) {
 	isDebug && Ti.API.info('in index, doVersion');
+	msg.removeAll(mymessages);
 	alert("尚未實作doVersion");
 }
 
 function doCarNumber(e) {
 	isDebug && Ti.API.info('in index, doCarNumber');
+	var carid = '';
+	var modelArray = mymatches.where({
+		'selected' : 'Y'
+	});
+	if (modelArray.length > 0) {
+		var mymatch = modelArray[0];
+		isDebug && Ti.API.info('in index, doCarNumber, mymatch = ' + JSON.stringify(mymatch));
+		carid = mymatch.get('carID');
+	}
+
+	var myev = {
+		carID : carid,
+		addTime : "19700101000000000"
+	};
+
+	handlePicture({
+		rowdata : JSON.stringify(myev)
+	});
+
 	alert("尚未實作doCarNumber");
 }
 
@@ -79,7 +103,7 @@ function doSettings(e) {
 
 function doMatch(e) {
 	isDebug && Ti.API.info('in index, doMatch');
-	var matchController = Alloy.createController('match', {
+	var matchController = Alloy.createController('settings/match', {
 		isDebug : true
 	});
 	matchController && matchController.getView() && matchController.getView().open();
@@ -208,7 +232,91 @@ function GUISetup() {
 			$.CarNumberL.text = mymatch.get('showname');
 		}
 	}
+}
 
+function handleGPS(e) {
+	if (e && e.message) {
+		var message = e.message;
+
+		var myArr = message.split(',');
+		if (myArr.length === 2) {
+			longitude = myArr[0];
+			latitude = myArr[1];
+		}
+		$.MapB.visible = true;
+
+		alert('get message : ' + JSON.stringify(e));
+	}
+}
+
+function handlePicture(e) {
+	if (e && e.rowdata) {
+		var rowdataStr = e.rowdata;
+		var rowdata = JSON.parse(rowdataStr);
+		var carID = rowdata.carID;
+		var addTime = rowdata.addTime;
+		Ti.API.info('in index->handlePicture, carID = ' + carID);
+		Ti.API.info('in index->handlePicture, addTime = ' + addTime);
+		var messageArray = mymessages.where({
+			'carID' : carID,
+			'addTime' : addTime
+		});
+
+		if (messageArray && messageArray.length == 0) {
+			// 找到該carid最後的一筆記錄
+			messageArray = mymessages.where({
+				'carID' : carID
+			});
+			// max_.max(list, [iterator], [context])
+			// 返回list中的最大值。如果传递iterator参数，iterator将作为list排序的依据。->handlePicture, exception = ' + ex);
+			var mymax = _.max(messageArray, function(model) {
+				return model.get('addTime');
+			});
+			var lastTime;
+			var phoneID = myphones.at(0).get('encodedKey');
+			//如果有找到記錄
+			Ti.API.info('in index->handlePicture->duList, mymax = ' + JSON.stringify(mymax));
+			if (_.isObject(mymax) && mymax.get('addTime'))
+				lastTime = mymax.get('addTime');
+
+			Ti.API.info('in index->handlePicture->duList, carID = ' + carID);
+			Ti.API.info('in index->handlePicture->duList, phoneID = ' + phoneID);
+			Ti.API.info('in index->handlePicture->duList, lastTime = ' + lastTime);
+
+			ct.duList({
+				data : {
+					carid : carID,
+					phoneid : phoneID,
+					lastTime : lastTime
+				},
+				success : function(ev) {
+					Ti.API.info('in index->handlePicture->duList, success message = ' + ev);
+					var items = ev.items;
+					_.each(items, function(item) {
+						Ti.API.info('in index->handlePicture->duList, success->each item= ' + JSON.stringify(item));
+						// url = url.replace(/T430S/g, '192.168.101.176');
+						msg.addItem(mymessages, {
+							encodedKey : item.encodedKey,
+							carID : carID,
+							phoneID : phoneID,
+							messageType : "pic",
+							mySerial : item.mySerial,
+							blobKey : item.blob_key,
+							// gps : item.encodedKey,
+							picture : item.serving_url.replace(/0.0.0.0/g, '192.168.101.176'),
+							// settings : item.encodedKey,
+							addTime : item.addTime,
+							modTime : item.addTime
+						});
+					});
+				},
+				fail : function(ev) {
+					Ti.API.error('in index->handlePicture->duList, error message = ' + ev);
+				}
+			});
+		}
+		alert('get message : ' + JSON.stringify(e));
+	}
 }
 
 function GUIReady() {
@@ -247,14 +355,9 @@ function GUIReady() {
 				var title = ev.title;
 				var message = ev.message;
 				if (title === "backGPS") {
-					var myArr = message.split(',');
-					if (myArr.length === 2) {
-						longitude = myArr[0];
-						latitude = myArr[1];
-					}
-					$.MapB.visible = true;
-
-					alert('get message : ' + JSON.stringify(ev));
+					handleGPS(ev);
+				} else if (title === "backPicture") {
+					handlePicture(ev);
 				}
 			}
 		},
@@ -279,3 +382,12 @@ $.index.addEventListener('focus', GUISetup);
 isDebug && Ti.API.info('init done');
 
 $.index.open();
+
+// var myev = {
+// carID : "agljYXItdHJhY2VyEwsSBkNhclJlZxiAgICAgICtCww",
+// addTime : "19700101000000000"
+// };
+//
+// handlePicture({
+// rowdata : JSON.stringify(myev)
+// });
