@@ -1,0 +1,35 @@
+<Alloy>
+  <Require id="header" src="settings_split/settings_head" title='RECORDING'/>  
+  <TableView class="SettingTV">
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="啟動錄像"/>
+        <Label class='keyvalue' text="開車自動"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="錄影循環"/>
+        <Label class='keyvalue' text="循環錄影"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="時間水印"/>
+        <Label class='keyvalue' text="開"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="日期格式"/>
+        <Label class='keyvalue' text="年/月/日"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="時間格式"/>
+        <Label class='keyvalue' text="上午/下午"/>
+      </View>
+    </TableViewRow>
+  </TableView>
+</Alloy>

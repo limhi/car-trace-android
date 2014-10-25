@@ -1,0 +1,5 @@
+<Alloy>  
+  <View id="SettingHeadV">
+    <Label id="SettingHeadL" text="SH"/>
+  </View>
+</Alloy>

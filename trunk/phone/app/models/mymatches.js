@@ -7,6 +7,7 @@ exports.definition = {
 			phoneID : "TEXT",
 			selected : "TEXT",
 			showname : "TEXT",
+			showcarnum : "TEXT",
 			addTime : "TEXT",
 			modTime : "TEXT"
 		},

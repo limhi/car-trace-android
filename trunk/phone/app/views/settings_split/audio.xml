@@ -1,0 +1,23 @@
+<Alloy>
+  <Require id="header" src="settings_split/settings_head" title='AUDIO'/>  
+  <TableView class="SettingTV">
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="錄音"/>
+        <Label class='keyvalue' text="關"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="播放聲音"/>
+        <Label class='keyvalue' text="開"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="播放音量"/>
+        <Label class='keyvalue' text="3"/>
+      </View>
+    </TableViewRow>
+  </TableView>
+</Alloy>

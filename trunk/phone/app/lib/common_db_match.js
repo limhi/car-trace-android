@@ -23,6 +23,7 @@ exports.addItem = function(collection, para) {
 			phoneID : para.phoneID,
 			selected : para.selected,
 			showname : para.showname,
+			showcarnum : para.showcarnum,
 			addTime : para.addTime,
 			modTime : para.modTime
 		});
@@ -68,6 +69,7 @@ exports.setOnlyItem = function(collection, para) {
 			phoneID : para.phoneID,
 			selected : para.selected,
 			showname : para.showname,
+			showcarnum : para.showcarnum,
 			addTime : para.addTime,
 			modTime : para.modTime
 		});

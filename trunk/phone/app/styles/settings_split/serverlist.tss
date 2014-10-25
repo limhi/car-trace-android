@@ -1,0 +1,76 @@
+'#MatchTV': {
+	top: '5%',
+	left: '5%',
+	right: '3%',
+	width: Titanium.UI.FILL,
+	height: '70%',
+	zIndex: 1
+},
+'#AddItemL': {
+	top: '5%',
+	left: '43%',
+	width: '14%',
+	height: '7%',
+	zIndex: 2,
+	borderColor: 'transparent',
+	backgroundImage: '/images/sh_set_add_btn_nor.png',
+	backgroundSelectedImage: '/images/sh_set_add_btn_down.png'
+},
+'#AddItemAD': {
+	zIndex: 3,
+	borderColor: 'transparent',
+	backgroundImage: 'transparent'
+},
+'#ad_titleL': {
+	width: Titanium.UI.FILL,
+	height: '10%',
+	zIndex: 3,
+	borderColor: 'transparent',
+	backgroundImage: '/images/sh_set_license_btn_down.png',
+	color: 'white',
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font:{
+		fontSize: 80
+	}
+},
+'#ad_shownameL': {
+	width: '80%',
+	height: '10%',
+	zIndex: 3,
+	borderColor: 'transparent',
+	color: 'white',
+	font:{
+		fontSize: 60
+	}
+},
+'#ad_carcodeL': {
+	width: '80%',
+	height: '10%',
+	zIndex: 3,
+	borderColor: 'transparent',
+	color: 'white',
+	font:{
+		fontSize: 60
+	}
+},
+'#ad_showcarnumL': {
+	width: '80%',
+	height: '10%',
+	zIndex: 3,
+	borderColor: 'transparent',
+	color: 'white',
+	font:{
+		fontSize: 60
+	}
+},
+'#ad_okB': {
+	top: '10%',
+	left: '40%',
+	width: '10%',
+	height: '7%',
+	zIndex: 3,
+	borderColor: 'transparent',
+	backgroundImage: '/images/SH_H_message_box_ok_btn_nor.png',
+	backgroundSelectedImage: '/images/SH_H_message_box_ok_btn_down.png'
+}
+

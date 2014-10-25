@@ -1,0 +1,110 @@
+".container": {
+	navBarHidden: true,
+	fullscreen: true,
+	layout: "horizontal",
+	backgroundImage: "/images/sh_set_bg.png"
+},
+"Label": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "white",
+	font: {
+		fontSize: 24
+	}
+},
+"#masterV": {
+	left: '2%',
+	right: '2%',
+	width: '16%',
+	height: Ti.UI.SIZE,
+	layout: 'vertical',
+	backgroundColor: 'transparent'
+},
+"#detailV": {
+	left: '1%',
+	right: '1%',
+	width: '76%',
+	height: Ti.UI.SIZE,
+	backgroundColor: 'transparent'
+},
+"#serverlistI": {
+	top: '5%',
+	bottom: '1%',
+	width: Ti.UI.FILL,
+	height: '8%',
+	zIndex: 1,
+	borderColor: 'transparent',
+	backgroundImage: "/images/sh_set_ser_list_btn_nor.png",
+	backgroundSelectedImage: '/images/sh_set_ser_list_btn_down.png'
+},
+"#cameraI": {
+	top: '1%',
+	bottom: '1%',
+	width: Ti.UI.FILL,
+	height: '8%',
+	zIndex: 1,
+	borderColor: 'transparent',
+	backgroundImage: "/images/sh_set_camera_btn_nor.png",
+	backgroundSelectedImage: '/images/sh_set_camera_btn_down.png'
+},
+"#snapshotI": {
+	top: '1%',
+	bottom: '1%',
+	width: Ti.UI.FILL,
+	height: '8%',
+	zIndex: 1,
+	borderColor: 'transparent',
+	backgroundImage: "/images/sh_set_snapshot_btn_nor.png",
+	backgroundSelectedImage: '/images/sh_set_snapshot_btn_down.png'
+},
+"#recordingI": {
+	top: '1%',
+	bottom: '1%',
+	width: Ti.UI.FILL,
+	height: '8%',
+	zIndex: 1,
+	borderColor: 'transparent',
+	backgroundImage: "/images/sh_set_recording_btn_nor.png",
+	backgroundSelectedImage: '/images/sh_set_recording_btn_down.png'
+},
+"#gsensorI": {
+	top: '1%',
+	bottom: '1%',
+	width: Ti.UI.FILL,
+	height: '8%',
+	zIndex: 1,
+	borderColor: 'transparent',
+	backgroundImage: "/images/sh_set_gsensor_btn_nor.png",
+	backgroundSelectedImage: '/images/sh_set_gsensor_btn_down.png'
+},
+"#audioI": {
+	top: '1%',
+	bottom: '1%',
+	width: Ti.UI.FILL,
+	height: '8%',
+	zIndex: 1,
+	borderColor: 'transparent',
+	backgroundImage: "/images/sh_set_audio_btn_nor.png",
+	backgroundSelectedImage: '/images/sh_set_audio_btn_down.png'
+},
+"#clientI": {
+	top: '1%',
+	bottom: '1%',
+	width: Ti.UI.FILL,
+	height: '8%',
+	zIndex: 1,
+	borderColor: 'transparent',
+	backgroundImage: "/images/sh_set_client_btn_nor.png",
+	backgroundSelectedImage: '/images/sh_set_client_btn_down.png'
+},
+"#backI": {
+	top: '1%',
+	bottom: '1%',
+	width: Ti.UI.FILL,
+	height: '8%',
+	zIndex: 1,
+	borderColor: 'transparent',
+	backgroundImage: "/images/sh_set_back_btn_nor.png",
+	backgroundSelectedImage: '/images/sh_set_back_btn_down.png'
+}
+

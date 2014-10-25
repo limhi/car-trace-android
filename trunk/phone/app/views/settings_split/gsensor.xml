@@ -1,0 +1,17 @@
+<Alloy>
+  <Require id="header" src="settings_split/settings_head" title='GSENSOR'/>
+  <TableView class="SettingTV">
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="行車碰撞感應"/>
+        <Label class='keyvalue' text="開"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="感應靈敏度"/>
+        <Label class='keyvalue' text="3"/>
+      </View>
+    </TableViewRow>
+  </TableView>
+</Alloy>

@@ -1,0 +1,10 @@
+<Alloy>
+  <TableViewRow id='rowTVR' layout="horizontal" onClick="myClick" carid='{carID}' selected='{selected}'>
+    <View id='rowV'  layout="horizontal">
+      <Label id='selectL' text=""/>
+      <Label id='shownameL' text='{showname}'/>
+      <Label id='showcarnumL' text='{showcarnum}'/>
+      <Label id='deleteL' text="Delete"/>
+    </View>
+  </TableViewRow>
+</Alloy>

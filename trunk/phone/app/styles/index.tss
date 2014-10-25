@@ -1,29 +1,41 @@
 '#TopView': {
-  top: '0%',
-  left: '0%',
-  width: Titanium.UI.FILL,
-  height: '4%'
+	top: '3%',
+	left: '2%',
+	right: '2%',
+	width: Titanium.UI.FILL,
+	height: '6%',
+	backgroundImage: '/images/SH_H_license_list_bt_nor.png'
 },
 '#MainView': {
-  top: '5%',
-  left: '0%',
-  width: Titanium.UI.FILL,
-  height: '50%'
+	top: '10%',
+	left: '2%',
+	right: '2%',
+	width: Titanium.UI.FILL,
+	height: '39%'
 },
 '#MapView': {
-  top: '55%',
-  left: '0%',
-  width: Titanium.UI.FILL,
-  height: '45%'
+	top: '50%',
+	left: '2%',
+	right: '2%',
+	width: Titanium.UI.FILL,
+	height: '38%',
+	backgroundImage: '/images/SH_H_window_map.png'
+},
+'#BtnToolBarView': {
+	top: '89%',
+	left: '2%',
+	right: '2%',
+	width: Titanium.UI.FILL,
+	height: '10%'
 },
 "Label": {
-  color: "black",
-  font: {
-    fontSize: 40,
-    fontWeight: "bold"
-  },
-  borderColor: "black",
-  borderWidth: 1,
-  textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+	color: "black",
+	font: {
+		fontSize: 40,
+		fontWeight: "bold"
+	},
+	borderColor: "black",
+	borderWidth: 1,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 }
 
