@@ -2,9 +2,4 @@
 	<ScrollableView id="PictureView" showPagingControl="false" dataCollection="mymessages" dataFunction="updateUI" dataTransform="transformData">
 		<ImageView id="pictureIV" image="{picture}"/>
 	</ScrollableView>
-	<Label id="SendToL" onClick="doSendTo"/>
-	<Label id="SnapshotL" onClick="doSnapshot"/>
-	<Label id="TalkL" onClick="doTalk"/>
-	<Label id="EnableGPSL" onClick="doEnableGPS"/>
-	<ImageView id="controlBarIV"/>
 </Alloy>

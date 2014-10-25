@@ -13,7 +13,9 @@ var myphones = Alloy.Collections.myphones;
 var mymatches = Alloy.Collections.mymatches;
 var mymessages = Alloy.Collections.mymessages;
 
-var longitude, latitude, carID;
+var longitude,
+    latitude,
+    carID;
 
 (function(activity, gcm) {
 	isDebug && Ti.API.info('into index gcm activity!');
@@ -71,6 +73,7 @@ function doVersion(e) {
 
 function doCarNumber(e) {
 	isDebug && Ti.API.info('in index, doCarNumber');
+	/*
 	var carid = '';
 	var modelArray = mymatches.where({
 		'selected' : 'Y'
@@ -90,7 +93,8 @@ function doCarNumber(e) {
 		rowdata : JSON.stringify(myev)
 	});
 
-	alert("尚未實作doCarNumber");
+	alert("尚未實作 doCarNumber");
+	*/
 }
 
 function doSettings(e) {
@@ -101,124 +105,141 @@ function doSettings(e) {
 	settingsController && settingsController.getView() && settingsController.getView().open();
 }
 
-function doMatch(e) {
-	isDebug && Ti.API.info('in index, doMatch');
-	var matchController = Alloy.createController('settings/match', {
-		isDebug : true
-	});
-	matchController && matchController.getView() && matchController.getView().open();
-}
+/*
+ function doMatch(e) {
+ isDebug && Ti.API.info('in index, doMatch');
+ var matchController = Alloy.createController('settings/match', {
+ isDebug : true
+ });
+ matchController && matchController.getView() && matchController.getView().open();
+ }
+ */
 
-function doGPS_Fetch(e) {
-	isDebug && Ti.API.info('in index, doGPS_Fetch');
-	var carid = '';
-	var modelArray = mymatches.where({
-		'selected' : 'Y'
-	});
-	if (modelArray.length > 0) {
-		var mymatch = modelArray[0];
-		isDebug && Ti.API.info('in index, doGPS_Fetch, mymatch = ' + JSON.stringify(mymatch));
-		carid = mymatch.get('carID');
-	}
-	var phoneid = myphones.at(0).get('encodedKey');
+/*
+ function doGPS_Fetch(e) {
+ isDebug && Ti.API.info('in index, doGPS_Fetch');
+ alert("尚未實作 doGPS_Fetch");
 
-	mySendPushNotification(carid, phoneid, "sendGPS", 'request for GPS', {
-		"type" : "mytype",
-		"data" : "mydata"
-	});
-}
+ var carid = '';
+ var modelArray = mymatches.where({
+ 'selected' : 'Y'
+ });
+ if (modelArray.length > 0) {
+ var mymatch = modelArray[0];
+ isDebug && Ti.API.info('in index, doGPS_Fetch, mymatch = ' + JSON.stringify(mymatch));
+ carid = mymatch.get('carID');
+ }
+ var phoneid = myphones.at(0).get('encodedKey');
 
-function doPicture_Fetch(e) {
-	isDebug && Ti.API.info('in index, doPicture_Fetch');
-	var carid = '';
-	var modelArray = mymatches.where({
-		'selected' : 'Y'
-	});
-	if (modelArray.length > 0) {
-		var mymatch = modelArray[0];
-		isDebug && Ti.API.info('in index, doPicture_Fetch, mymatch = ' + JSON.stringify(mymatch));
-		carid = mymatch.get('carID');
-	}
-	var phoneid = myphones.at(0).get('encodedKey');
+ mySendPushNotification(carid, phoneid, "sendGPS", 'request for GPS', {
+ "type" : "mytype",
+ "data" : "mydata"
+ });
+ }
+ */
+/*
+ function doPicture_Fetch(e) {
+ isDebug && Ti.API.info('in index, doPicture_Fetch');
 
-	mySendPushNotification(carid, phoneid, "sendPicture", 'request for Picture', {
-		"type" : "mytype",
-		"data" : "mydata"
-	});
-}
+ alert("尚未實作 doPicture_Fetch");
 
-function mySendPushNotification(carid, phoneid, title, message, rowdata) {
-	isDebug && Ti.API.info('in index, mySendPushNotification');
+ var carid = '';
+ var modelArray = mymatches.where({
+ 'selected' : 'Y'
+ });
+ if (modelArray.length > 0) {
+ var mymatch = modelArray[0];
+ isDebug && Ti.API.info('in index, doPicture_Fetch, mymatch = ' + JSON.stringify(mymatch));
+ carid = mymatch.get('carID');
+ }
+ var phoneid = myphones.at(0).get('encodedKey');
 
-	isDebug && Ti.API.info('in index->mySendPushNotification, carid = ' + JSON.stringify(carid));
-	isDebug && Ti.API.info('in index->mySendPushNotification, phoneid = ' + JSON.stringify(phoneid));
-	isDebug && Ti.API.info('in index->mySendPushNotification, title = ' + JSON.stringify(title));
-	isDebug && Ti.API.info('in index->mySendPushNotification, message = ' + JSON.stringify(message));
-	isDebug && Ti.API.info('in index->mySendPushNotification, rowdata = ' + JSON.stringify(rowdata));
-	ct.pcpnMerge({
-		data : {
-			title : title,
-			message : message,
-			rowdata : rowdata,
-			phoneid : phoneid,
-			carid : carid
-		},
-		success : function(e) {
-			isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success, message = ' + JSON.stringify(e));
-			var messageid = e.messageID;
-			isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success, messageid = ' + messageid);
+ mySendPushNotification(carid, phoneid, "sendPicture", 'request for Picture', {
+ "type" : "mytype",
+ "data" : "mydata"
+ });
+ }
+ */
 
-			ct.pcpnSend({
-				data : {
-					phoneid : phoneid,
-					messageid : messageid
-				},
-				success : function(ev) {
-					isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success->pcpnSend, success, title = ' + title + ', message = ' + JSON.stringify(ev));
-					$.MessageTA.value = 'in index->mySendPushNotification->pcpnMerge, success->pcpnSend, success, title = ' + title + ', message = ' + JSON.stringify(ev);
-				},
-				fail : function(ev) {
-					Ti.API.error('in index->mySendPushNotification->pcpnMerge, success->pcpnSend, fail, title = ' + title + ', message = ' + JSON.stringify(ev));
-					$.MessageTA.value = 'in index->mySendPushNotification->pcpnMerge, success->pcpnSend, fail, title = ' + title + ', message = ' + JSON.stringify(ev);
-				}
-			});
-		},
-		fail : function(e) {
-			Ti.API.error('in index->mySendPushNotification->pcpnMerge, fail, title = ' + title + ', message = ' + JSON.stringify(m));
-			$.MessageTA.value += '\nin index->mySendPushNotification->pcpnMerge, fail, title = ' + title + ', message = ' + JSON.stringify(m);
-		}
-	});
-}
+/*
+ function mySendPushNotification(carid, phoneid, title, message, rowdata) {
+ isDebug && Ti.API.info('in index, mySendPushNotification');
+
+ isDebug && Ti.API.info('in index->mySendPushNotification, carid = ' + JSON.stringify(carid));
+ isDebug && Ti.API.info('in index->mySendPushNotification, phoneid = ' + JSON.stringify(phoneid));
+ isDebug && Ti.API.info('in index->mySendPushNotification, title = ' + JSON.stringify(title));
+ isDebug && Ti.API.info('in index->mySendPushNotification, message = ' + JSON.stringify(message));
+ isDebug && Ti.API.info('in index->mySendPushNotification, rowdata = ' + JSON.stringify(rowdata));
+ ct.pcpnMerge({
+ data : {
+ title : title,
+ message : message,
+ rowdata : rowdata,
+ phoneid : phoneid,
+ carid : carid
+ },
+ success : function(e) {
+ isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success, message = ' + JSON.stringify(e));
+ var messageid = e.messageID;
+ isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success, messageid = ' + messageid);
+
+ ct.pcpnSend({
+ data : {
+ phoneid : phoneid,
+ messageid : messageid
+ },
+ success : function(ev) {
+ isDebug && Ti.API.info('in index->mySendPushNotification->pcpnMerge, success->pcpnSend, success, title = ' + title + ', message = ' + JSON.stringify(ev));
+ $.MessageTA.value = 'in index->mySendPushNotification->pcpnMerge, success->pcpnSend, success, title = ' + title + ', message = ' + JSON.stringify(ev);
+ },
+ fail : function(ev) {
+ Ti.API.error('in index->mySendPushNotification->pcpnMerge, success->pcpnSend, fail, title = ' + title + ', message = ' + JSON.stringify(ev));
+ $.MessageTA.value = 'in index->mySendPushNotification->pcpnMerge, success->pcpnSend, fail, title = ' + title + ', message = ' + JSON.stringify(ev);
+ }
+ });
+ },
+ fail : function(e) {
+ Ti.API.error('in index->mySendPushNotification->pcpnMerge, fail, title = ' + title + ', message = ' + JSON.stringify(m));
+ $.MessageTA.value += '\nin index->mySendPushNotification->pcpnMerge, fail, title = ' + title + ', message = ' + JSON.stringify(m);
+ }
+ });
+ }
+ */
 
 function doMap(e) {
 	isDebug && Ti.API.info('in index, doMap');
-	$.MapB.visible = false;
+	$.MapWV.visible = true;
 	isDebug && Ti.API.info('in index, longitude = ' + longitude);
 	isDebug && Ti.API.info('in index, latitude = ' + latitude);
-	var intent = Ti.Android.createIntent({
-		action : Ti.Android.ACTION_VIEW,
-		data : 'geo:' + latitude + ',' + longitude
-	});
-	Ti.Android.currentActivity.startActivity(intent);
+	var urlString = "http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q="+latitude+
+	","+longitude+"&z=14&t=";
+	isDebug && Ti.API.info('in index, urlString = ' + urlString);
+	$.MapWV.url = urlString;
+	$.MapWV.reload();
+	// var intent = Ti.Android.createIntent({
+	// action : Ti.Android.ACTION_VIEW,
+	// data : 'geo:' + latitude + ',' + longitude
+	// });
+	// Ti.Android.currentActivity.startActivity(intent);
 }
 
 function GUISetup() {
-	$.RegisterB.enabled = true;
-	$.MatchB.enabled = true;
-	$.GPS_FetchB.enabled = false;
-	$.MessageTA.value = '';
+	//$.RegisterB.enabled = true;
+	//$.MatchB.enabled = true;
+	//$.GPS_FetchB.enabled = false;
+	//$.MessageTA.value = '';
 	myphones.fetch();
 	if (myphones.length !== 0) {
-		$.RegisterB.enabled = false;
+		//$.RegisterB.enabled = false;
 		var myphone = myphones.at(0);
-		$.MessageTA.value = 'register success\nphoneid : ' + myphone.get('encodedKey');
-		$.MatchB.enabled = true;
+		//$.MessageTA.value = 'register success\nphoneid : ' + myphone.get('encodedKey');
+		//$.MatchB.enabled = true;
 
 		mymatches.fetch();
 		if (mymatches.length !== 0) {
-			$.MessageTA.value += '\nmatch with ' + mymatches.length + ' devices';
-			$.GPS_FetchB.enabled = true;
-			$.Picture_FetchB.enabled = true;
+			//$.MessageTA.value += '\nmatch with ' + mymatches.length + ' devices';
+			//$.GPS_FetchB.enabled = true;
+			//$.Picture_FetchB.enabled = true;
 		}
 	}
 
@@ -238,14 +259,16 @@ function handleGPS(e) {
 	if (e && e.message) {
 		var message = e.message;
 
+		alert('get message : ' + JSON.stringify(e));
 		var myArr = message.split(',');
 		if (myArr.length === 2) {
 			longitude = myArr[0];
 			latitude = myArr[1];
+			doMap(e);
+		} else {
+			alert('error message : ' + JSON.stringify(e));
 		}
-		$.MapB.visible = true;
-
-		alert('get message : ' + JSON.stringify(e));
+		//$.MapB.visible = true;
 	}
 }
 
@@ -320,8 +343,8 @@ function handlePicture(e) {
 }
 
 function GUIReady() {
-	$.RegisterB.enabled = true;
-	$.GPSInfoTA.visible = false;
+	//$.RegisterB.enabled = true;
+	//$.GPSInfoTA.visible = false;
 	var gcm = require('net.iamyellow.gcmjs');
 
 	var pendingData = gcm.data;
@@ -350,7 +373,7 @@ function GUIReady() {
 			isDebug && Ti.API.info('******* callback, ' + JSON.stringify(ev));
 			// $.GPSInfoTA.visible = true;
 			// $.GPSInfoTA.value = 'get message : ' + JSON.stringify(ev);
-			$.MessageTA.value = 'get message : ' + JSON.stringify(ev);
+			//$.MessageTA.value = 'get message : ' + JSON.stringify(ev);
 			if (ev && ev.title && ev.message) {
 				var title = ev.title;
 				var message = ev.message;

@@ -1,0 +1,45 @@
+<Alloy>
+  <Window class="container">
+    <View id="masterV">
+      <Label id="serverlistI" onClick="doserverlist"></Label>
+      <Label id="serverlistL" onClick="doserverlist">SERVER LIST</Label>
+      <Label id="cameraI" onClick="docamera"></Label>
+      <Label id="cameraL" onClick="docamera">CAMERA</Label>
+      <Label id="snapshotI" onClick="dosnapshot"></Label>
+      <Label id="snapshotL" onClick="dosnapshot">SNAPSHOT</Label>
+      <Label id="recordingI" onClick="dorecording"></Label>
+      <Label id="recordingL" onClick="dorecording">RECORDING</Label>
+      <Label id="gsensorI" onClick="dogsensor"></Label>
+      <Label id="gsensorL" onClick="dogsensor">G-SENSOR</Label>
+      <Label id="audioI" onClick="doaudio"></Label>
+      <Label id="audioL" onClick="doaudio">AUDIO</Label>
+      <Label id="clientI" onClick="doclient"></Label>
+      <Label id="clientL" onClick="doclient">CLIENT</Label>
+      <Label id="backI" onClick="doback"></Label>
+      <Label id="backL" onClick="doback">BACK</Label>
+    </View>
+    <View id="detailV">
+      <View id="serverlistV" layout="vertical">
+        <Require id="serverlistVV" src="settings_split/serverlist"/>
+      </View>
+      <View id="cameraV" layout="vertical">
+        <Require id="cameraVV" src="settings_split/camera"/>
+      </View>
+      <View id="snapshotV" layout="vertical">
+        <Require id="snapshotVV" src="settings_split/snapshot"/>
+      </View>
+      <View id="recordingV" layout="vertical">
+        <Require id="recordingVV" src="settings_split/recording"/>
+      </View>
+      <View id="gsensorV" layout="vertical">
+        <Require id="gsensorVV" src="settings_split/gsensor"/>
+      </View>
+      <View id="audioV" layout="vertical">
+        <Require id="audioVV" src="settings_split/audio"/>
+      </View>
+      <View id="clientV" layout="vertical">
+        <Require id="clientVV" src="settings_split/client"/>
+      </View>
+    </View>
+  </Window>
+</Alloy>

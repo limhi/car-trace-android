@@ -1,0 +1,41 @@
+<Alloy>
+  <Require id="header" src="settings_split/settings_head" title='CLIENT'/>  
+  <TableView class="SettingTV">
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="親友聯防"/>
+        <Label class='keyvalue' text=""/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="觸摸提示音"/>
+        <Label class='keyvalue' text="開"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="提示聲音量"/>
+        <Label class='keyvalue' text="3"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="語言"/>
+        <Label class='keyvalue' text="繁中"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="回復出廠值"/>
+        <Label class='keyvalue' text=""/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="版本"/>
+        <Label class='keyvalue' text="v 1.0.0"/>
+      </View>
+    </TableViewRow>
+  </TableView>
+</Alloy>

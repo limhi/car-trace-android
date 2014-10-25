@@ -1,0 +1,50 @@
+'#CameraL': {
+	top: '2%',
+	left: '3%',
+	width: '15%',
+	height: '90%',
+	zIndex: 0,
+	borderColor: 'transparent',
+	backgroundImage: '/images/SH_H_camerat_bt_nor.png',
+	backgroundSelectedImage: '/images/SH_H_camerat_bt_down.png'
+},
+'#SendL': {
+	top: '2%',
+	left: '5%',
+	width: '15%',
+	height: '90%',
+	zIndex: 0,
+	borderColor: 'transparent',
+	backgroundImage: '/images/SH_H_send_bt_nor.png',
+	backgroundSelectedImage: '/images/SH_H_send_bt_down.png'
+},
+'#GPSL': {
+	top: '2%',
+	left: '5%',
+	width: '15%',
+	height: '90%',
+	zIndex: 0,
+	borderColor: 'transparent',
+	backgroundImage: '/images/SH_H_gps_bt_nor.png',
+	backgroundSelectedImage: '/images/SH_H_gps_bt_down.png'
+},
+'#TalkL': {
+	top: '2%',
+	left: '5%',
+	width: '15%',
+	height: '90%',
+	zIndex: 0,
+	borderColor: 'transparent',
+	backgroundImage: '/images/SH_H_talk_bt_nor.png',
+	backgroundSelectedImage: '/images/SH_H_talk_bt_down.png'
+},
+'#SettingsL': {
+	top: '2%',
+	left: '5%',
+	width: '15%',
+	height: '90%',
+	zIndex: 0,
+	borderColor: 'transparent',
+	backgroundImage: '/images/SH_H_setting_bt_nor.png',
+	backgroundSelectedImage: '/images/SH_H_setting_bt_down.png'
+}

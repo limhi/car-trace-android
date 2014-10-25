@@ -1,0 +1,23 @@
+<Alloy>
+  <Require id="header" src="settings_split/settings_head" title='SNAPSHOT'/>
+  <TableView class="SettingTV">
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="連拍張數"/>
+        <Label class='keyvalue' text="3"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="連拍時間間隔"/>
+        <Label class='keyvalue' text="5"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="首選儲存位置"/>
+        <Label class='keyvalue' text="SD卡"/>
+      </View>
+    </TableViewRow>
+  </TableView>
+</Alloy>

@@ -1,0 +1,7 @@
+<Alloy>
+    <Label id="CameraL" onClick="doCamera"/>
+    <Label id="SendL" onClick="doSend"/>
+    <Label id="GPSL" onClick="doGPS"/>
+    <Label id="TalkL" onClick="doTalk"/>
+    <Label id="SettingsL" onClick="doSettings"/>
+</Alloy>

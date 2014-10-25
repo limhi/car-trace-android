@@ -1,21 +1,33 @@
 <Alloy>
-	<Window class="container" layout="composite" >
-		<View id="TopView" layout="horizontal">
-			<Label id="VersionL" width="20%" height="Titanium.UI.FILL" onClick="doVersion">Ver 1.0</Label>
-			<Label id="CarNumberL" width="60%" height="Titanium.UI.FILL" onClick="doCarNumber">CarNumber</Label>
-			<Label id="SettingsL" width="20%" height="Titanium.UI.FILL" onClick="doSettings">Settings</Label>
-		</View>
-		<View id="MainView" layout="composite">
-			<Require id="main" src="main"/>
-		</View>
-		<View id="MapView" layout="vertical">
-			<Button id="RegisterB" enabled="true" onClick="doRegister">Register</Button>
-			<Button id="MatchB" enabled="false" onClick="doMatch">Match Car</Button>
-			<Button id="GPS_FetchB" enabled="false" onClick="doGPS_Fetch">Fetch Car GPS</Button>
-			<Button id="Picture_FetchB" enabled="false" onClick="doPicture_Fetch">Fetch Car Picture</Button>
-			<TextArea id="MessageTA" enabled="false" editable="false" hintText="please register first!" value=""></TextArea>
-			<TextArea id="GPSInfoTA" enabled="false" editable="false" visble="false" value=""></TextArea>
-			<Button id="MapB" enabled="false" visible="false" onClick="doMap">Map</Button>
-		</View>
-	</Window>
+    <Window class="container" layout="composite" >
+        <View id="TopView" layout="horizontal">
+            <!--
+            <Label id="VersionL" width="20%" height="Titanium.UI.FILL" onClick="doVersion">Ver 1.0</Label>
+            -->
+            <Label id="CarNumberL" width="100%" height="Titanium.UI.FILL" onClick="doCarNumber">CarNumber</Label>
+            <!--
+            <Label id="SettingsL" width="20%" height="Titanium.UI.FILL" onClick="doSettings">Settings</Label>
+            -->
+        </View>
+        <View id="MainView" layout="composite">
+            <Require id="main" src="main"/>
+        </View>
+        <View id="MapView" layout="vertical">
+            <!--
+            <Button id="RegisterB" enabled="true" onClick="doRegister">Register</Button>
+            <Button id="MatchB" enabled="false" onClick="doMatch">Match Car</Button>
+            <Button id="GPS_FetchB" enabled="false" onClick="doGPS_Fetch">Fetch Car GPS</Button>
+            <Button id="Picture_FetchB" enabled="false" onClick="doPicture_Fetch">Fetch Car Picture</Button>
+            <TextArea id="MessageTA" enabled="false" editable="false" hintText="please register first!" value=""></TextArea>
+            <TextArea id="GPSInfoTA" enabled="false" editable="false" visble="false" value=""></TextArea>
+            <Button id="MapB" enabled="false" visible="false" onClick="doMap">Map</Button>
+            -->
+            <WebView id="MapWV" visible='false'>
+                
+            </WebView>
+        </View>
+        <View id="BtnToolBarView" layout="horizontal">
+            <Require id="btntoolbar" src="btntoolbar"/>
+        </View>
+    </Window>
 </Alloy>

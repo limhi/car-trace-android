@@ -1,0 +1,21 @@
+'#SettingHeadV': {
+	left: '5%',
+	right: '5%',
+	width: Titanium.UI.FILL,
+	height: '10%',
+	zIndex: 0,
+	borderColor: 'transparent'
+},
+'#SettingHeadL': {
+	top: '55%',
+	left: '25%',
+	right: '15%',
+	width: Titanium.UI.FILL,
+	height: Titanium.UI.FILL,
+	zIndex: 1,
+	borderColor: 'transparent',
+	color: 'white',
+	font:{
+		fontSize: 60
+	}
+}

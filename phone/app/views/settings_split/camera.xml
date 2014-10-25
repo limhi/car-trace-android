@@ -1,0 +1,29 @@
+<Alloy>
+  <Require id="header" src="settings_split/settings_head" title='CAMERA'/>
+  <TableView class="SettingTV">
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="曝光值"/>
+        <Label class='keyvalue' text='0'/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="防閃爍"/>
+        <Label class='keyvalue' text='60Hz'/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="白平衡"/>
+        <Label class='keyvalue' text="自動"/>
+      </View>
+    </TableViewRow>
+    <TableViewRow class='SettingTVR'>
+      <View class='rowV'  layout="horizontal">
+        <Label class='keyname' text="紅外光夜視燈"/>
+        <Label class='keyvalue' text="自動"/>
+      </View>
+    </TableViewRow>
+  </TableView>
+</Alloy>

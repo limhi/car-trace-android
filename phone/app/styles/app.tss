@@ -1,17 +1,54 @@
 ".container": {
-	navBarHidden:true,
-	fullscreen :true,
-  backgroundImage: "/images/Shield_bg.png"
-  // backgroundColor: "white"
+	navBarHidden: true,
+	fullscreen: true,
+	backgroundImage: "/images/SH_H_BG.jpg"
 },
-// "View":{
-  // borderColor: "black",
-  // borderWidth: 1,
-  // layout: "vertical"
-// },
+".SettingTV": {
+	layout: "vertical",
+	top: '5%',
+	left: '5%',
+	right: '3%',
+	width: Titanium.UI.FILL,
+	separatorColor: 'white',
+	height: '77%',
+	zIndex: 1
+},
+".SettingTVR": {
+	layout: "horizontal",
+	top: '2%',
+	height: '80dp'
+},
+'.rowV': {
+	top: '4%',
+	bottom: '4%',
+	backgroundImage: '/images/sh_set_license_btn_nor.png',
+	backgroundSelectedImage: '/images/sh_set_license_btn_down.png'
+},
+'.keyname': {
+	top: '40%',
+	left: "5%" ,
+	right: "2%",
+	width: "45%",
+	color: 'white',
+	textAlign:Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font:{
+		fontSize: 50
+	}
+},
+'.keyvalue': {
+	top: '40%',
+	left: "2%" ,
+	right: "2%",
+	width: "40%",
+	color: 'cyan',
+	textAlign:Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font:{
+		fontSize: 50
+	}
+},
 "TextFiled": {
-  font: {
-    fontSize: 40
-  }
+	font: {
+		fontSize: 40
+	}
 }
 

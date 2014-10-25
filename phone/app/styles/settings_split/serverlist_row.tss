@@ -1,0 +1,47 @@
+'#rowTVR': {
+	top: '2%',
+	height: '80dp'
+},
+'#rowV': {
+	top: '4%',
+	bottom: '4%',
+	backgroundImage: '/images/sh_set_license_btn_nor.png',
+	backgroundSelectedImage: '/images/sh_set_license_btn_down.png'
+},
+'#selectL': {
+	top: '40%',
+	left: "2%" ,
+	right: "5%",
+	width: "10%",
+	height: '20dp'
+},
+'#shownameL': {
+	top: '40%',
+	left: "5%" ,
+	right: "2%",
+	width: "20%",
+	color: 'white',
+	font:{
+		fontSize: 60
+	}
+},
+'#showcarnumL': {
+	top: '40%',
+	left: "5%" ,
+	right: "2%",
+	width: "20%",
+	color: 'green',
+	font:{
+		fontSize: 60
+	}
+},
+'#deleteL': {
+	top: '40%',
+	left: "5%" ,
+	right: "2%",
+	width: "20%",
+	color: 'red',
+	font:{
+		fontSize: 40
+	}
+}

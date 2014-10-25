@@ -7,6 +7,7 @@ migration.up = function(migrator) {
 			phoneID : 'TEXT',
 			selected : 'TEXT',
 			showname : 'TEXT',
+			showcarnum : 'TEXT',
 			addTime : 'TEXT',
 			modTime : 'TEXT'
 		}

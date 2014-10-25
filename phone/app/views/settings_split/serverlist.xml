@@ -1,0 +1,43 @@
+<Alloy>
+  <!--
+  <Window class="container" layout="vertical">
+  <View id="SettingHeadV">
+  <Label id="SettingHeadL" text="SERVER LIST"/>
+  </View>
+  -->
+  <Require id="header" src="settings_split/settings_head" title='SERVER LIST'/>
+  <TableView id="MatchTV" layout="vertical" dataCollection="mymatches" dataFunction="updateUI" dataTransform="transformData">
+    <Require src="settings_split/serverlist_row"/>
+  </TableView>
+  <!--
+  <View height="10%">
+  <Label id="TableMessage" width="Titanium.UI.FILL" height="Titanium.UI.FILL">msg...</Label>
+  </View>
+  -->
+  <Label id="AddItemL" onClick="doAddItemAD"/>
+  <AlertDialog id="AddItemAD">
+    <!--  Add View or AndroidView for the androidView property  -->
+    <View platform="android" layout="vertical">
+      <Label id="ad_titleL" text="新增車輛"/>
+      <Label id="ad_shownameL" text="車輛名稱" />
+      <TextField id="ad_shownameTF" hintText="請輸入您容易記憶的名稱" width="80%"/>
+      <Label id="ad_carcodeL" text="行車記錄儀認證碼" />
+      <TextField id="ad_carcodeTF" hintText="請輸入設備認證碼" width="80%"/>
+      <Label id="ad_showcarnumL" text="車輛號碼" />
+      <TextField id="ad_showcarnumTF" hintText="請輸入您的車輛號碼" width="80%"/>
+      <View platform="android" layout="horizontal">
+        <Button id="ad_okB" title="" onClick="doADOk"/>
+      </View>
+    </View>
+  </AlertDialog>
+  <!--
+  <View id="SettingFunction" height="10%" layout="horizontal">
+  <Label id="DWsettings" width="30%" height="Titanium.UI.FILL" onClick="doDownloadSettings">download settings</Label>
+  <Label id="Editsettings" width="40%" height="Titanium.UI.FILL" onClick="doEditSettings">edit settings</Label>
+  <Label id="ULSettings" width="30%" height="Titanium.UI.FILL" onClick="doUploadSettings">upload settings</Label>
+  </View>
+  -->
+  <!--
+  </Window>
+  -->
+</Alloy>
